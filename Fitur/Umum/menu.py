@@ -1,6 +1,7 @@
 from Fitur.Umum.controler import clear_terminal
 import pandas as pd
 import os 
+
 def menu(email, username, kabupaten, desa, role):
     clear_terminal()
     pembuka = ''
@@ -28,21 +29,26 @@ def menu(email, username, kabupaten, desa, role):
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/Admin"):
-            nama = i.split(".")
-            pembuka += f"""║├▶ {idx}. {nama[0]}{" "*(45-len(str(idx) + nama[0]))}│║\n"""
-            idx +=1
+            if i.endswith(".py"):
+                nama = i.replace(".py", "")
+                nama = nama.replace("_", " ")
+                pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""
+                idx +=1
         pembuka += f"""║├▶ {idx}. Keluar                                      │║\n"""
         pembuka += f"""║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """
+
     elif role == "user":
         idx = 1
         pembuka += f"""║┌─────────────────────────────────────────────────┐║
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/User"):
-            nama = i.split(".")
-            pembuka += f"""║├▶ {idx}. {nama[0]}{" "*(45-len(str(idx) + nama[0]))}│║\n"""
+            if i.endswith(".py"):
+                nama = i.replace(".py", "")
+                nama = nama.replace("_", " ")
+                pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""
             idx +=1
         pembuka += f"""║├▶ {idx}. Keluar                                      │║\n"""
         pembuka += f"""║└─────────────────────────────────────────────────┘║

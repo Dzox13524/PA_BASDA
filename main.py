@@ -3,7 +3,9 @@ from  Fitur.Umum.login import login
 from Fitur.Umum.register import Register
 from Fitur.Umum.controler import clear_terminal
 from Fitur.Umum.menu import menu
+from Fitur.Umum.menu import menu
 
+from Fitur.Admin.List_Akun import list_akun
 while True:
         clear_terminal()
         print("""
@@ -25,6 +27,8 @@ while True:
                                 match pilihan: 
                                     case '1':
                                         clear_terminal()
+                                        print(list_akun('a'))
+                                        input("Tekan [Enter] untuk kembali ke menu...")
                                     case '2':
                                         clear_terminal()
                                     case '3':
