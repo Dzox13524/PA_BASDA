@@ -27,8 +27,7 @@ while True:
                                 match pilihan: 
                                     case '1':
                                         clear_terminal()
-                                        print(list_akun('a'))
-                                        input("Tekan [Enter] untuk kembali ke menu...")
+                                        list_akun()
                                     case '2':
                                         clear_terminal()
                                     case '3':
