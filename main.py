@@ -3,9 +3,10 @@ from  Fitur.Umum.login import login
 from Fitur.Umum.register import Register
 from Fitur.Umum.controler import clear_terminal
 from Fitur.Umum.menu import menu
-from Fitur.Umum.menu import menu
 
-from Fitur.Admin.List_Akun import list_akun
+from Fitur.Admin.Pengelolaan_Akun_Pengguna.Cari_Akun import Pencarian
+from Fitur.Admin.Pengelolaan_Akun_Pengguna.List_Akun import Fitur_ListAkun
+from Fitur.Admin.Pengelolaan_Akun_Pengguna.Menu_Pengelolaan_Akun import menu_pengelolaan_akun
 while True:
         clear_terminal()
         print("""
@@ -26,9 +27,10 @@ while True:
                                 pilihan = input('Pilih menu: ')
                                 match pilihan: 
                                     case '1':
+                                        Pencarian("Name", "Ahmad")
                                         clear_terminal()
-                                        list_akun()
                                     case '2':
+                                        menu_pengelolaan_akun(username, kabupaten, role)
                                         clear_terminal()
                                     case '3':
                                         clear_terminal()
@@ -52,18 +54,6 @@ while True:
                                     case ValueError:
                                         clear_terminal()
                                         break
-                            else: 
-                                pilihan = input('Pilih menu: ')
-                                match pilihan:
-                                    case '1':
-                                        clear_terminal()
-                                    case '2':
-                                        clear_terminal()
-                                    case '3':
-                                        clear_terminal()
-                                        break
-                                    case ValueError:
-                                        clear_terminal()
                     else:
                         clear_terminal()
             elif inputan == 3:
