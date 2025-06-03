@@ -20,6 +20,7 @@ def Register():
 
     nama = input('Masukkan Nama        : ').capitalize()
     email = input('Masukkan Email       : ')
+    nomor_telpon = input('Masukkan Nomor Telpon:')
     password = input('Masukkan Password    : ')
     password2 = input('Konfirmasi Password  : ') 
     if password == password2:
@@ -27,12 +28,12 @@ def Register():
                 try:
                     for index, data in enumerate(ListLokasi):
                         print(index+1, " ", data["kecamatan"])
-                    Kecamatan = int(input('masukkan angka Kecamatan: ')) - 1
+                    Kecamatan = int(input('Masukkan angka Kecamatan: ')) - 1
                     if  0 <= Kecamatan < len(ListLokasi):
                         data = ListLokasi[Kecamatan]
                         for index, data in enumerate(ListLokasi[Kecamatan]["desa"]):
                             print(index+1, " ", data)
-                        Desa = int(input('masukkan angka Desa: ')) - 1
+                        Desa = int(input('Masukkan angka Desa: ')) - 1
                         if  0 <= Desa < len(ListLokasi[Kecamatan]["desa"]):
                             database = pd.read_csv(lokasiDB + 'Akun.csv')
                             if '@gmail.com' not in email: 
@@ -46,6 +47,7 @@ def Register():
                                 'ID': No+1,
                                 'Name':nama,
                                 'Email':email,
+                                'Nomor Telpon':nomor_telpon,
                                 'Password': password,
                                 'Role': 'user',
                                 'Kecamatan': kecamatan,
@@ -55,10 +57,10 @@ def Register():
                             datanew.to_csv(lokasiDB + "Akun.csv",mode='a',header=False ,index=False)
                             return ''
                         else:
-                            input(f'hanya bisa memasukkan angka [1-{len(Kecamatan)}]')
+                            input(f'Hanya bisa memasukkan angka [1-{len(Kecamatan)}]')
                     else:
-                        input(f'hanya bisa memasukkan angka [1-{len(ListLokasi)}]')
+                        input(f'Hanya bisa memasukkan angka [1-{len(ListLokasi)}]')
                 except ValueError:
-                    input('hanya bisa memasukkan angka!')
+                    input('Hanya bisa memasukkan angka!')
     else:
-        input('password 1 dan 2 tidak sama')
+        input('Password 1 dan 2 tidak sama!')

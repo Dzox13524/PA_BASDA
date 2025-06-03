@@ -21,12 +21,6 @@ while True:
 ║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """.strip())
-#         print("=== APLIKASI PERPUSTAKAAN ===\n") 
-#         print("""
-# 1. Registrasi
-# 2. Login
-# 3. Keluar
-# """.strip())
         print("")
         try:
             inputan = int(input('Masukkan nomor [1-3]: '))
@@ -64,10 +58,18 @@ while True:
                                     case '3':
                                         clear_terminal()
                                         input('Tekan enter untuk melanjutkan!')
+                                    case '4':
+                                        clear_terminal()
+                                        input('Tekan enter untuk melanjutkan!')
+                                    case '5':
+                                        clear_terminal()
+                                        input('Tekan enter untuk melanjutkan!')
+                                    case '6':
+                                        clear_terminal()
+                                        print('Log Out') 
                                         break
                                     case ValueError:
                                         clear_terminal()
-                                        break
                     else:
                         clear_terminal()
             elif inputan == 3:
