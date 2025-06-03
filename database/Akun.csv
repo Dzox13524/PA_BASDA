@@ -1,4 +1,4 @@
-ID,Name,Email,Nomor Telepon,no hp,Password,Role (Data Asli - Sepertinya Kecamatan),Kecamatan (Data Asli - Sepertinya Desa),Desa (Data Asli - Kosong)
+ID,Name,Email,Nomor Telepon,Password,Role,Kecamatan,Desa
 1,Amat,aa@gmail.com,081200000001,a,admin,Rambipuji,Rambigundam,
 2,Budi Hartono,budi.h2@gmail.com,081200000002,userpass1,user,Sumbersari,Karangrejo,
 3,Citra Lestari,citra.l3@gmail.com,081200000003,userpass2,user,Kaliwates,Mangli,
