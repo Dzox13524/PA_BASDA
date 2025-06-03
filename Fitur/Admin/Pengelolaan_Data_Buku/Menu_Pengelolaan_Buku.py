@@ -16,7 +16,7 @@ def menu_pengelolaan_buku(username, kabupaten, role):
 ║│              OPSI PENGELOLAAN BUku              │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/Admin/Pengelolaan_Data_Buku"):
-            if i.endswith(".py"):
+            if i.endswith(".py") and i != "Menu_Pengelolaan_Buku.py":
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
                 pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""
