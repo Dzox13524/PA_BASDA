@@ -29,10 +29,10 @@ while True:
                                 pilihan = input('Pilih menu: ')
                                 match pilihan: 
                                     case '1':
-                                        menu_pengelolaan_buku(username, kabupaten, role)
+                                        menu_pengelolaan_akun(username, kabupaten, role)
                                         clear_terminal()
                                     case '2':
-                                        menu_pengelolaan_akun(username, kabupaten, role)
+                                        menu_pengelolaan_buku(username, kabupaten, role)
                                         clear_terminal()
                                     case '3':
                                         clear_terminal()

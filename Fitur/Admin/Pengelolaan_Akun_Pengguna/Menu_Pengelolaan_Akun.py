@@ -47,8 +47,6 @@ def menu_pengelolaan_akun(username, kabupaten, role):
                 clear_terminal()
             case '6':
                 clear_terminal()
-            case '7':
-                clear_terminal()
                 break
             case ValueError:
                 clear_terminal()
