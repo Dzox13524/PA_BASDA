@@ -19,7 +19,7 @@ def menu_pengelolaan_akun(username, kabupaten, role):
 ║│              OPSI PENGELOLAAN AKUN              │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/Admin/Pengelolaan_Akun_Pengguna"):
-            if i.endswith(".py"):
+            if i.endswith(".py") and i != "Menu_Pengelolaan_Akun.py":
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
                 pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""

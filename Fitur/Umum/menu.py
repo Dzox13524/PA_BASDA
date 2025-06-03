@@ -12,6 +12,20 @@ def menu(email, username, kabupaten, desa, role):
 ║ ⊳ Role   : {role + ' '*(51-len(role) - 12) + '║'}
 ║ ⊳ Lokasi : {kabupaten + ' '*(51-len(kabupaten) - 12) + '║'}
 ╠───────────────────────────────────────────────────╣\n"""
+        idx = 1
+        pembuka += """║┌─────────────────────────────────────────────────┐║
+║│                    LIST MENU                    │║
+║├─────────────────────────────────────────────────┤║\n"""
+        for i in os.listdir("./fitur/Umum"):
+            if i.endswith(".py") and i != "menu.py":
+                nama = i.replace(".py", "")
+                nama = nama.replace("_", " ")
+                pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""
+                idx +=1
+        pembuka += f"""║├▶ {idx}. Keluar                                      │║\n"""
+        pembuka += """║└─────────────────────────────────────────────────┘║
+╚───────────────────────────────────────────────────╝
+"""
     if role == 'admin':
         idx = 1
         pembuka += """║┌─────────────────────────────────────────────────┐║
