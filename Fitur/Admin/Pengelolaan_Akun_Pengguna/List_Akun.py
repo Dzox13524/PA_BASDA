@@ -28,14 +28,40 @@ def sorted_data(urutan):
 def list_akun(urutan):
     awal = 0
     akhir= 50
+    halaman = 1
+    total_halaman = (len(data) + 50 - 1) // 50
     usernames = data[urutan].tolist()
     indices = list(range(len(usernames)))
     shaker_sort_indexed(indices, usernames)
-    sorted_data = data.iloc[indices].reset_index(drop=True)
-    sorted_data.insert(0, "No", range(1, len(sorted_data) + 1))[awal:akhir]
-    result = tabulate(sorted_data, headers=["No","ID","Name","Email","Password","Role","Kecamatan","Desa"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
-    result += f"\nTotal User: {len(data)}"
-    return print(result)
+    while True:
+        clear_terminal()
+        sorted_data = data.iloc[indices].reset_index(drop=True)[awal:akhir]
+        sorted_data.insert(0, "No", range(1, len(sorted_data) + 1))
+        result = tabulate(sorted_data, headers=["No","ID","Name","Email","Password","Role","Kecamatan","Desa"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
+        result += f"\n\nTotal User: {len(data)}\n"
+        result += f"Halaman {halaman} dari {total_halaman}\n"
+        result += "----------------------------------------\n"
+        if halaman == 1:
+            result += "Tekan [Enter] untuk kembali ke menu utama, ketik [N] untuk halaman selanjutnya\n"
+        elif halaman < total_halaman:
+            result += "Tekan [Enter] untuk kembali ke menu utama, ketik [N] untuk halaman selanjutnya, atau ketik [P] untuk halaman sebelumnya.\n"
+        else:
+            result += "Tekan [Enter] untuk kembali ke menu utama, atau ketik [P] untuk halaman sebelumnya.\n"
+        result += "----------------------------------------\n"
+        print(result)
+        inputan = input("Pilihan Anda: ").strip().lower()
+        if inputan == 'n' and halaman <= total_halaman:
+            awal = akhir
+            akhir += 50
+            halaman += 1
+            continue
+        elif inputan == 'p' and halaman > 1:
+            akhir = awal
+            awal = akhir - 50
+            halaman -= 1
+            continue
+        elif inputan == '':
+            break
 
 def Fitur_ListAkun():
     while True:
@@ -50,19 +76,19 @@ def Fitur_ListAkun():
             case '1':
                 clear_terminal()
                 list_akun("ID")
-                return input("Tekan [Enter] untuk kembali ke menu...")
+                break
             case '2':
                 clear_terminal()
                 list_akun("Name")
-                return input("Tekan [Enter] untuk kembali ke menu...")
+                break
             case '3':
                 clear_terminal()
                 list_akun("Kecamatan")
-                return input("Tekan [Enter] untuk kembali ke menu...")
+                break
             case '4':
                 clear_terminal()
                 list_akun("Desa")
-                return input("Tekan [Enter] untuk kembali ke menu...")
+                break
             case '5':
                 clear_terminal()
                 input("Tekan [Enter] untuk kembali ke menu...")
