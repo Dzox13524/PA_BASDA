@@ -47,19 +47,19 @@ def Fitur_ListAkun():
         match pilihan:
             case '1':
                 clear_terminal()
-                print(list_akun("ID"))
+                list_akun("ID")
                 return input("Tekan [Enter] untuk kembali ke menu...")
             case '2':
                 clear_terminal()
-                print(list_akun("Name"))
+                list_akun("Name")
                 return input("Tekan [Enter] untuk kembali ke menu...")
             case '3':
                 clear_terminal()
-                print(list_akun("Kecamatan"))
+                list_akun("Kecamatan")
                 return input("Tekan [Enter] untuk kembali ke menu...")
             case '4':
                 clear_terminal()
-                print(list_akun("Desa"))
+                list_akun("Desa")
                 return input("Tekan [Enter] untuk kembali ke menu...")
             case '5':
                 clear_terminal()

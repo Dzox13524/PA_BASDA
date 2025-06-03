@@ -1,6 +1,9 @@
 from Fitur.Umum.controler import clear_terminal
 import os 
 
+from Fitur.Admin.Pengelolaan_Akun_Pengguna.Cari_Akun import Pencarian
+from Fitur.Admin.Pengelolaan_Akun_Pengguna.List_Akun import Fitur_ListAkun
+
 def menu_pengelolaan_akun(username, kabupaten, role):
     while True:
         clear_terminal()
@@ -29,6 +32,7 @@ def menu_pengelolaan_akun(username, kabupaten, role):
         pilihan = input('Pilih menu: ')
         match pilihan:
             case '1':
+                Pencarian("Name", "Ahmat")
                 clear_terminal()
             case '2':
                 clear_terminal()
@@ -37,6 +41,14 @@ def menu_pengelolaan_akun(username, kabupaten, role):
                 print('Log Out')
                 break
             case '4':
+                Fitur_ListAkun()
                 clear_terminal()
+            case '5':
+                clear_terminal()
+            case '6':
+                clear_terminal()
+            case '7':
+                clear_terminal()
+                break
             case ValueError:
                 clear_terminal()
