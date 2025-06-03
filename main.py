@@ -8,11 +8,13 @@ from Fitur.Admin.Pengelolaan_Akun_Pengguna.Menu_Pengelolaan_Akun import menu_pen
 from Fitur.Admin.Pengelolaan_Data_Buku.Menu_Pengelolaan_Buku import menu_pengelolaan_buku
 while True:
         clear_terminal()
+        print("=== APLIKASI PERPUSTAKAAN ===\n") 
         print("""
 1. Registrasi
 2. Login
 3. Keluar
 """.strip())
+        print("")
         try:
             inputan = int(input('Masukkan nomor [1-3]: '))
             if inputan == 1:
@@ -61,5 +63,4 @@ while True:
             else :
                 input('Pilihan Anda tidak valid! Harap pilih angka 1, 2, atau 3')
         except (ValueError)  :
-            clear_terminal()
             input('Pilihan yang Anda masukkan tidak valid. Harap masukkan angka yang benar.')
