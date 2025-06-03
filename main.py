@@ -9,12 +9,24 @@ from Fitur.Admin.Pengelolaan_Data_Buku.Menu_Pengelolaan_Buku import menu_pengelo
 
 while True:
         clear_terminal()
-        print("=== APLIKASI PERPUSTAKAAN ===\n") 
-        print("""
-1. Registrasi
-2. Login
-3. Keluar
+        print("""╔───────────────────────────────────────────────────╗
+║               APLIKASI PERPUSTAKAAN               ║
+╠───────────────────────────────────────────────────╣
+║┌─────────────────────────────────────────────────┐║
+║│                    OPSI MENU                    │║
+║├─────────────────────────────────────────────────┤║
+║├▶ 1. Registrasi                                  │║
+║├▶ 2. Login                                       │║
+║├▶ 3. Keluar                                      │║
+║└─────────────────────────────────────────────────┘║
+╚───────────────────────────────────────────────────╝
 """.strip())
+#         print("=== APLIKASI PERPUSTAKAAN ===\n") 
+#         print("""
+# 1. Registrasi
+# 2. Login
+# 3. Keluar
+# """.strip())
         print("")
         try:
             inputan = int(input('Masukkan nomor [1-3]: '))
