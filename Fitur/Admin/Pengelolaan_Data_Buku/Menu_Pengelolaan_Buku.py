@@ -13,7 +13,7 @@ def menu_pengelolaan_buku(username, kabupaten, role):
 ╠───────────────────────────────────────────────────╣\n"""
         idx = 1
         pembuka += """║┌─────────────────────────────────────────────────┐║
-║│              OPSI PENGELOLAAN BUku              │║
+║│              OPSI PENGELOLAAN BUKU              │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/Admin/Pengelolaan_Data_Buku"):
             if i.endswith(".py") and i != "Menu_Pengelolaan_Buku.py":
