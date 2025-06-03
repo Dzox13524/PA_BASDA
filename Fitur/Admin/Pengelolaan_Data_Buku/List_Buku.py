@@ -95,6 +95,6 @@ def Fitur_ListAkun():
                 break
             case _:
                 clear_terminal()
-                print("Pilihan tidak falid! pilih angka [1-5]")
+                print("Pilihan tidak falid! pilih angkat [1-5]")
                 input("Tekan [Enter] untuk melanjutkan...")
                 continue
