@@ -2,7 +2,7 @@ import pandas as pd
 from tabulate import tabulate
 from Fitur.Umum.controler import clear_terminal
 
-def shaker_sort_indexed(arr, key_list):
+def shaker_sort(arr, key_list):
     kiri = 0
     kanan = len(arr) - 1
     while kiri < kanan:
@@ -20,7 +20,7 @@ data = pd.read_csv("database/Akun.csv")
 def sorted_data(urutan):
     usernames = data[urutan].tolist()
     indices = list(range(len(usernames)))
-    shaker_sort_indexed(indices, usernames)
+    shaker_sort(indices, usernames)
     sorted_data = data.iloc[indices].reset_index(drop=True)
     sorted_data.insert(0, "No", range(1, len(sorted_data) + 1))
     return sorted_data
@@ -32,7 +32,7 @@ def list_akun(urutan):
     total_halaman = (len(data) + 50 - 1) // 50
     usernames = data[urutan].tolist()
     indices = list(range(len(usernames)))
-    shaker_sort_indexed(indices, usernames)
+    shaker_sort(indices, usernames)
     while True:
         clear_terminal()
         sorted_data = data.iloc[indices].reset_index(drop=True)[awal:akhir]
