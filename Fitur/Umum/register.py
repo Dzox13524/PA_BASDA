@@ -20,7 +20,7 @@ def Register():
 
     nama = input('Masukkan Nama        : ').capitalize()
     email = input('Masukkan Email       : ')
-    nomor_telpon = input('Masukkan Nomor Telpon:')
+    NomorHp = input('Masukkan Nomor Hp       : ')
     password = input('Masukkan Password    : ')
     password2 = input('Konfirmasi Password  : ') 
     if password == password2:
@@ -36,6 +36,9 @@ def Register():
                         Desa = int(input('Masukkan angka Desa: ')) - 1
                         if  0 <= Desa < len(ListLokasi[Kecamatan]["desa"]):
                             database = pd.read_csv(lokasiDB + 'Akun.csv')
+                            if (NomorHp.isdigit == False):
+                                input('Masukkan Nomor Hp!')
+                                return ''
                             if '@gmail.com' not in email: 
                                 input('Email Yang Anda Masukkan Tidak Falid!')
                                 return ''
@@ -47,7 +50,7 @@ def Register():
                                 'ID': No+1,
                                 'Name':nama,
                                 'Email':email,
-                                'Nomor Telpon':nomor_telpon,
+                                'Nomor_Telepon':NomorHp,
                                 'Password': password,
                                 'Role': 'user',
                                 'Kecamatan': kecamatan,

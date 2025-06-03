@@ -1,6 +1,3 @@
-import pandas as pd
-from tabulate import tabulate
-from Fitur.Umum.controler import clear_terminal
 from Fitur.Admin.Pengelolaan_Akun_Pengguna.List_Akun import sorted_data
 
 def Pencarian_fibonacci(data, target):

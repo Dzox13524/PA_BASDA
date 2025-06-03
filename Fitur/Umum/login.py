@@ -4,6 +4,7 @@ def login():
     email = input('Masukkan Email: ')
     password = input('Masukkan Password: ')
     database = pd.read_csv('database/Akun.csv')
+    print(database)
     if email in database['Email'].values:
         data = database[database['Email'] == email]
         if data['Password'].values[0] == password:
