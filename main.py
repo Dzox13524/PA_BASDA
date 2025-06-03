@@ -4,9 +4,8 @@ from Fitur.Umum.register import Register
 from Fitur.Umum.controler import clear_terminal
 from Fitur.Umum.menu import menu
 
-from Fitur.Admin.Pengelolaan_Akun_Pengguna.Cari_Akun import Pencarian
-from Fitur.Admin.Pengelolaan_Akun_Pengguna.List_Akun import Fitur_ListAkun
 from Fitur.Admin.Pengelolaan_Akun_Pengguna.Menu_Pengelolaan_Akun import menu_pengelolaan_akun
+from Fitur.Admin.Pengelolaan_Data_Buku.Menu_Pengelolaan_Buku import menu_pengelolaan_buku
 while True:
         clear_terminal()
         print("""
@@ -27,7 +26,7 @@ while True:
                                 pilihan = input('Pilih menu: ')
                                 match pilihan: 
                                     case '1':
-                                        Pencarian("Name", "Ahmad")
+                                        menu_pengelolaan_buku(username, kabupaten, role)
                                         clear_terminal()
                                     case '2':
                                         menu_pengelolaan_akun(username, kabupaten, role)
