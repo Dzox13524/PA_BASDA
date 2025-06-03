@@ -37,7 +37,7 @@ def list_akun(urutan):
         clear_terminal()
         sorted_data = data.iloc[indices].reset_index(drop=True)[awal:akhir]
         sorted_data.insert(0, "No", range(1, len(sorted_data) + 1))
-        result = tabulate(sorted_data, headers=["No","ID","Name","Email","Password","Role","Kecamatan","Desa"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
+        result = tabulate(sorted_data, headers=["No","ID","Name","Email","No HP","Role","Kecamatan","Desa"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
         result += f"\n\nTotal User: {len(data)}\n"
         result += f"Halaman {halaman} dari {total_halaman}\n"
         result += "----------------------------------------\n"

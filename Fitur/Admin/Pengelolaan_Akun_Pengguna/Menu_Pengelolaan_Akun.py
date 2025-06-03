@@ -8,7 +8,7 @@ def menu_pengelolaan_akun(username, kabupaten, role):
     while True:
         clear_terminal()
         pembuka = f"""╔───────────────────────────────────────────────────╗
-║             PENGELOLAAN AKUN PENGGUNA             ║
+║                     LIST AKUN                     ║
 ╠───────────────────────────────────────────────────╣
 ║ ⊳ Name   : {username.upper() + ' '*(51-len(username) - 12) + '║'}
 ║ ⊳ Role   : {role + ' '*(51-len(role) - 12) + '║'}
