@@ -16,7 +16,7 @@ def menu(email, username, kabupaten, desa, role):
         pembuka += """║┌─────────────────────────────────────────────────┐║
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║\n"""
-        for i in os.listdir("./fitur/Umum"):
+        for i in os.listdir("./fitur/User"):
             if i.endswith(".py") and i != "menu.py":
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
