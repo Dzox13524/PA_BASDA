@@ -9,7 +9,7 @@ def TambahBuku():
     kolom_buku = [
         'ISBN', 'JudulBuku', 'Penulis', 'Penerbit',
         'JumlahHalaman', 'Genre', 'TahunTerbit', 'Stok',
-        'TanggalMasuk', 'Ketersediaan', 'Deskripsi', 'TotalDipinjam'
+        'Deskripsi', 'TanggalMasuk', 'Ketersediaan', 'TotalDipinjam'
     ]
 
     # Baca atau buat file CSV
@@ -65,4 +65,19 @@ def TambahBuku():
     print(f"\n✅ Buku '{judul}' berhasil ditambahkan!")
 
 
+def TambahBuku():
+    while True:
+        print("\n=== Menu Buku ===")
+        print("1. Tambah Buku")
+        print("2. Keluar")
+
+        pilihan = input("Pilih menu (1-3): ")
+
+        if pilihan == '1':
+            TambahBuku()
+        elif pilihan == '2':
+            print("Keluar dari program...")
+            break
+        else:
+            print("⚠️  Pilihan tidak valid!")
 
