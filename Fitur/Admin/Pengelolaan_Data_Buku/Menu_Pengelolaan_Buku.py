@@ -12,7 +12,7 @@ def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
     total_halaman = (len(sorted_data(urutan)) + 50 - 1) // 50
     while True:
         idx = 1
-        clear_terminal()
+        
         result = tabulate(data[["No","ISBN", "JudulBuku", "Penulis", "Genre", "TahunTerbit", "Stok"]], headers=["No","ISBN", "JudulBuku", "Penulis", "Genre", "TahunTerbit", "Stok"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
         result += f"\nTotal User: {len(sorted_data(urutan))} | Halaman {halaman} dari {total_halaman}\n\n"
         result += "---\n"
@@ -42,7 +42,7 @@ def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
                 print('Log Out')
                 break
             case '4':
-                TambahBuku
+                TambahBuku()
                 clear_terminal()
             case '5':
                 clear_terminal()

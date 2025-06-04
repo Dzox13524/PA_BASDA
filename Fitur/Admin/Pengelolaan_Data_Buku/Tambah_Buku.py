@@ -64,20 +64,3 @@ def TambahBuku():
     df_baru.to_csv(path_csv, mode='a', header=not os.path.exists(path_csv), index=False)
     print(f"\n✅ Buku '{judul}' berhasil ditambahkan!")
 
-
-def TambahBuku():
-    while True:
-        print("\n=== Menu Buku ===")
-        print("1. Tambah Buku")
-        print("2. Keluar")
-
-        pilihan = input("Pilih menu (1-3): ")
-
-        if pilihan == '1':
-            TambahBuku()
-        elif pilihan == '2':
-            print("Keluar dari program...")
-            break
-        else:
-            print("⚠️  Pilihan tidak valid!")
-
