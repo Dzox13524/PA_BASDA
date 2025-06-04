@@ -6,9 +6,7 @@ from Fitur.Umum.menu import menu
 from Fitur.Admin.Pengelolaan_Akun_Pengguna.Menu_Pengelolaan_Akun import menu_pengelolaan_akun
 from Fitur.Admin.Pengelolaan_Data_Buku.Menu_Pengelolaan_Buku import menu_pengelolaan_Buku
 from Fitur.User.Riwayat_Peminjaman import lihatRiwayatPeminjaman
-
-
-
+from Fitur.User.Mengembalikan_Buku import kembalikanBuku
 while True:
         clear_terminal()
         print("""╔───────────────────────────────────────────────────╗
@@ -44,7 +42,7 @@ while True:
                                         clear_terminal()
                                     case '3':
                                         clear_terminal()
-                                        print('Sedang LogOut!')     
+                                        input('Sedang LogOut!')     
                                         break
                                     case ValueError:
                                         clear_terminal()
@@ -59,6 +57,7 @@ while True:
                                     case '3':
                                         clear_terminal()
                                     case '4':
+                                        kembalikanBuku()
                                         clear_terminal()
                                     case '5':
                                         lihatRiwayatPeminjaman()
