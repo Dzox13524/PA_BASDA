@@ -50,6 +50,7 @@ while True:
                                 pilihan = input('Pilih menu: ')
                                 match pilihan:
                                     case '1':
+                                        
                                         clear_terminal()
                                     case '2':
                                         clear_terminal()
