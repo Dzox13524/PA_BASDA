@@ -42,7 +42,7 @@ while True:
                                         clear_terminal()
                                     case '3':
                                         clear_terminal()
-                                        print('Sedang LogOut!')     
+                                        input('Sedang LogOut!')     
                                         break
                                     case ValueError:
                                         clear_terminal()

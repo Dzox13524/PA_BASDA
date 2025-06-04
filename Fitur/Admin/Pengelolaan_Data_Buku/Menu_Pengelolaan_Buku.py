@@ -30,7 +30,7 @@ def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
         result += f"""[{idx}] Keluar\n"""
         result += "---\n"
         print(result)
-        pilihan = input('Pilih menu: ')
+        pilihan = input('Pilih menu: ').strip().lower()
         match pilihan:
             case '1':
                 clear_terminal()
@@ -57,6 +57,8 @@ def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
                     halaman += 1
                 continue
             case '6':
+                clear_terminal()
+            case '7':
                 clear_terminal()
                 break
             case ValueError:
