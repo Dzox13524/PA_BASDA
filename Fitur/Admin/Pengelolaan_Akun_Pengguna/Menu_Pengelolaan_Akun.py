@@ -34,7 +34,7 @@ def menu_pengelolaan_akun(username, kabupaten, role, urutan = "Name"):
         result += f"""[{idx}] Keluar\n"""
         result += "---\n"
         print(result)
-        pilihan = input('Pilih menu: ')
+        pilihan = input('Pilih menu: ').strip().lower()
         match pilihan:
             case '1':
                 Pencarian("Name", "Ahmat")
@@ -49,6 +49,7 @@ def menu_pengelolaan_akun(username, kabupaten, role, urutan = "Name"):
                 clear_terminal()
             case '5':
                 clear_terminal()
+                break
             case "p":
                 if halaman > 1:
                     akhir = awal
@@ -61,8 +62,5 @@ def menu_pengelolaan_akun(username, kabupaten, role, urutan = "Name"):
                     akhir += 50
                     halaman += 1
                 continue
-            case '6':
-                clear_terminal()
-                break
             case ValueError:
                 clear_terminal()
