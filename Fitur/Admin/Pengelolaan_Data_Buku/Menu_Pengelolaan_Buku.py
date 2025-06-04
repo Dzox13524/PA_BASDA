@@ -1,6 +1,7 @@
 from Fitur.Umum.controler import clear_terminal
 from tabulate import tabulate
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import sorted_data
+from Fitur.Admin.Pengelolaan_Data_Buku.Tambah_Buku import TambahBuku
 import os 
 
 def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
@@ -41,6 +42,7 @@ def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
                 print('Log Out')
                 break
             case '4':
+                TambahBuku
                 clear_terminal()
             case '5':
                 clear_terminal()
