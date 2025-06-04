@@ -1,31 +1,35 @@
 from Fitur.Umum.controler import clear_terminal
+from tabulate import tabulate
+from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import sorted_data
 import os 
 
-def menu_pengelolaan_buku(username, kabupaten, role):
+def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
+    awal = 0
+    akhir = 50
+    halaman = 1
+    data = sorted_data(urutan)[awal:akhir]
+    total_halaman = (len(sorted_data(urutan)) + 50 - 1) // 50
     while True:
-        clear_terminal()
-        pembuka = f"""╔───────────────────────────────────────────────────╗
-║                 PENGELOLAAN BUKU                  ║
-╠───────────────────────────────────────────────────╣
-║ ⊳ Name   : {username.upper() + ' '*(51-len(username) - 12) + '║'}
-║ ⊳ Role   : {role + ' '*(51-len(role) - 12) + '║'}
-║ ⊳ Lokasi : {kabupaten + ' '*(51-len(kabupaten) - 12) + '║'}
-╠───────────────────────────────────────────────────╣\n"""
         idx = 1
-        pembuka += """║┌─────────────────────────────────────────────────┐║
-║│              OPSI PENGELOLAAN BUKU              │║
-║├─────────────────────────────────────────────────┤║\n"""
+        clear_terminal()
+        result = tabulate(data[["No","ISBN", "JudulBuku", "Penulis", "Genre", "TahunTerbit", "Stok"]], headers=["No","ISBN", "JudulBuku", "Penulis", "Genre", "TahunTerbit", "Stok"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
+        result += f"\nTotal User: {len(sorted_data(urutan))} | Halaman {halaman} dari {total_halaman}\n\n"
+        result += "---\n"
         for i in os.listdir("./fitur/Admin/Pengelolaan_Data_Buku"):
-            if i.endswith(".py") and i != "Menu_Pengelolaan_Buku.py":
+            if i.endswith(".py") and i != "Menu_Data_Buku.py" and i != "List_Buku.py":
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
-                pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""
+                result += f"""[{idx}] {nama}\n"""
                 idx +=1
-        pembuka += f"""║├▶ {idx}. Keluar                                      │║\n"""
-        pembuka += """║└─────────────────────────────────────────────────┘║
-╚───────────────────────────────────────────────────╝
-    """
-        print(pembuka)
+        if halaman == 1:
+            result += "[L] Halaman Selanjutnya\n"
+        elif halaman < total_halaman:
+            result += "[P] Halaman Sebelumnya | [L] Halaman Selanjutnya\n"
+        else:
+            result += "[P] Halaman Sebelumnya\n"
+        result += f"""[{idx}] Keluar\n"""
+        result += "---\n"
+        print(result)
         pilihan = input('Pilih menu: ')
         match pilihan:
             case '1':
@@ -34,13 +38,25 @@ def menu_pengelolaan_buku(username, kabupaten, role):
                 clear_terminal()
             case '3':
                 clear_terminal()
+                print('Log Out')
+                break
             case '4':
                 clear_terminal()
             case '5':
                 clear_terminal()
+            case "p":
+                if halaman > 1:
+                    akhir = awal
+                    awal = akhir - 50
+                    halaman -= 1
+                continue
+            case "l":
+                if halaman < total_halaman:
+                    awal = akhir
+                    akhir += 50
+                    halaman += 1
+                continue
             case '6':
-                clear_terminal()
-            case '7':
                 clear_terminal()
                 break
             case ValueError:
