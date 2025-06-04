@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 import os
 
-lokasiDB = 'database/'
+lokasiDB = 'database/Buku.csv'
 
 def TambahBuku():
     # Kolom lengkap

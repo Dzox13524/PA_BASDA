@@ -42,7 +42,7 @@ def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
                 print('Log Out')
                 break
             case '4':
-                TambahBuku
+                TambahBuku()
                 clear_terminal()
             case '5':
                 clear_terminal()
