@@ -7,6 +7,8 @@ from Fitur.Admin.Pengelolaan_Akun_Pengguna.Menu_Pengelolaan_Akun import menu_pen
 from Fitur.Admin.Pengelolaan_Data_Buku.Menu_Pengelolaan_Buku import menu_pengelolaan_Buku
 from Fitur.User.Riwayat_Peminjaman import lihatRiwayatPeminjaman
 
+
+
 while True:
         clear_terminal()
         print("""╔───────────────────────────────────────────────────╗
@@ -50,6 +52,7 @@ while True:
                                 pilihan = input('Pilih menu: ')
                                 match pilihan:
                                     case '1':
+                                        
                                         clear_terminal()
                                     case '2':
                                         clear_terminal()
