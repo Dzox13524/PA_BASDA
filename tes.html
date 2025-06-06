@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boyer-Moore Visualisasi Custom</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .row { display: flex; margin: 5px 0; }
+    .cell {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 40px;
+      text-align: center;
+      margin-right: 2px;
+    }
+    .match { background: lightgreen; }
+    .mismatch { background: lightcoral; }
+    #output { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<h2>Boyer-Moore Search Visualisasi (Custom Array)</h2>
+
+<label>Text (pisahkan dengan koma):</label><br>
+<input id="textInput" type="text" placeholder="misal: a,b,c,d,e,f,g" style="width: 300px"><br><br>
+
+<label>Pattern (pisahkan dengan koma):</label><br>
+<input id="patternInput" type="text" placeholder="misal: d,e,f" style="width: 300px"><br><br>
+
+<button onclick="runBM()">Jalankan Boyer-Moore</button>
+
+<div id="output"></div>
+
+<script>
+  function buildLastTable(pat) {
+    let last = {};
+    for (let i = 0; i < pat.length; i++) {
+      last[pat[i]] = i;
+    }
+    return last;
+  }
+
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function runBM() {
+    const output = document.getElementById("output");
+    output.innerHTML = "";
+
+    const text = document.getElementById("textInput").value.split(",").map(s => s.trim());
+    const pattern = document.getElementById("patternInput").value.split(",").map(s => s.trim());
+
+    if (pattern.length === 0 || text.length === 0) {
+      alert("Mohon masukkan text dan pattern terlebih dahulu.");
+      return;
+    }
+
+    const last = buildLastTable(pattern);
+    let i = pattern.length - 1;
+
+    while (i < text.length) {
+      let j = pattern.length - 1;
+      let k = i;
+
+      let row = document.createElement("div");
+      row.className = "row";
+
+      for (let m = 0; m < text.length; m++) {
+        let cell = document.createElement("div");
+        cell.className = "cell";
+        cell.textContent = text[m];
+
+        if (m >= k - j && m <= k) {
+          if (text[m] === pattern[j - (k - m)]) {
+            cell.classList.add("match");
+          } else {
+            cell.classList.add("mismatch");
+          }
+        }
+
+        row.appendChild(cell);
+      }
+
+      output.appendChild(row);
+      await delay(1000);
+
+      while (j >= 0 && text[k] === pattern[j]) {
+        k--;
+        j--;
+      }
+
+      if (j < 0) {
+        let result = document.createElement("p");
+        result.innerHTML = `<b>Pattern ditemukan mulai dari indeks ${k + 1}</b>`;
+        output.appendChild(result);
+        return;
+      } else {
+        let l = last[text[k]];
+        i += Math.max(1, j - (l !== undefined ? l : -1));
+      }
+    }
+
+    let result = document.createElement("p");
+    result.innerHTML = `<b>Pattern tidak ditemukan dalam text.</b>`;
+    output.appendChild(result);
+  }
+</script>
+
+</body>
+</html>
