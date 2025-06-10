@@ -1,6 +1,6 @@
 import config
 
-from Fitur.Umum.controler import clear_terminal,buttons
+from controler import clear_terminal,buttons
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import sorted_data
 from Fitur.User.Lihat_Daftar_Buku.Pinjam_Buku import Fitur_Pinjam_Buku
 def buat_tabel_bad_character(pola):

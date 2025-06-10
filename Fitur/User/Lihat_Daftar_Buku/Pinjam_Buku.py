@@ -1,7 +1,7 @@
 import config
 import pandas as pd
 from datetime import datetime, timedelta
-from Fitur.Umum.controler import clear_terminal, buttons
+from controler import clear_terminal, buttons
 
 def buat_tabel_bad_character(pola):
     tabel = {}
@@ -47,13 +47,6 @@ def pencarian(data, berdasarkan, dicari):
     return hasil
 
 def Pinjam_Buku(ISBN, Waktu):
-
-    tanggal_pinjam = datetime.today()
-    tanggal_pinjam_str = tanggal_pinjam.strftime('%Y-%m-%d')
-    tanggal_kembali = tanggal_pinjam + timedelta(days=Waktu)
-    tanggal_kembali_str = tanggal_kembali.strftime('%Y-%m-%d')
-
-
     data = pd.read_csv("./database/Buku.csv")
     pinjam = pd.read_csv("./database/Peminjaman.csv")
     hasil_idx = pencarian(data, "ISBN", ISBN)
@@ -66,9 +59,10 @@ def Pinjam_Buku(ISBN, Waktu):
         'ID': f"P{No:03d}",
         'ID_User': config.ID_Akun,
         'ISBN':ISBN,
-        'Tanggal_Meminjam':tanggal_pinjam_str,
+        'Durasi_Peminjaman':Waktu,
+        'Tanggal_Meminjam':None,
         'Status_Pengembalian':"Permintaan_Peminjaman",
-        'Tanggal_Kembali':tanggal_kembali_str
+        'Tanggal_Kembali':None
             }
     datanew = pd.DataFrame([Newdata])
     datanew.to_csv("./database/Peminjaman.csv",mode='a',header=False ,index=False)

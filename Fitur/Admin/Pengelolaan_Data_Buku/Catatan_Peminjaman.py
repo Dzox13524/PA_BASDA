@@ -1,6 +1,6 @@
 import pandas as pd
 from tabulate import tabulate
-from Fitur.Umum.controler import buttons,clear_terminal
+from controler import buttons,clear_terminal
 from Fitur.Admin.Pengelolaan_Data_Buku.Tamplian_Peminjaman_Buku import Fitur_Tampilan_Peminjaman_Buku
 
 def List_Peminjaman(status_filter, awal, akhir, halaman):

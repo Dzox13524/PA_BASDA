@@ -1,6 +1,6 @@
 ISBN,JudulBuku,Penulis,Penerbit,JumlahHalaman,Genre,TahunTerbit,Stok,TanggalMasuk,Ketersediaan,Deskripsi,TotalDipinjam
 9784628904106,Python Dasar,Andi Wijaya,Informatika,250,Komputer,2020,13,15-01-2023,Tersedia,Buku pemrograman Python untuk pemula.,0
-9788258965963,Laskar Pelangi,Andrea Hirata,Bentang Pustaka,529,Fiksi,2005,5,10-02-2023,Tersedia,Novel inspiratif berlatar Belitung.,0
+9788258965963,Laskar Pelangi,Andrea Hirata,Bentang Pustaka,529,Fiksi,2005,3,10-02-2023,Tersedia,Novel inspiratif berlatar Belitung.,0
 9783689327907,Bumi Manusia,Pramoedya Ananta Toer,Hasta Mitra,535,Fiksi Sejarah,1980,4,20-03-2023,Tersedia,Bagian pertama dari Tetralogi Buru,0
 9784336091198,Cantik Itu Luka,Eka Kurniawan,Gramedia Pustaka Utama,537,Fiksi Sastra,2002,2,05-04-2023,Tersedia,Kisah epik keluarga dengan latar sejarah Indonesia.,0
 9781669925273,Filosofi Teras,Henry Manampiring,Penerbit Buku Kompas,346,Self-help/Filsafat,2018,7,11-05-2023,Tersedia,Pengantar filsafat Stoisisme untuk kehidupan modern.,0
@@ -24,7 +24,7 @@ ISBN,JudulBuku,Penulis,Penerbit,JumlahHalaman,Genre,TahunTerbit,Stok,TanggalMasu
 9786655794184,Panduan Investasi Saham Cerdas,Rian Wijaya,Modal Cerdas,260,Bisnis/Investasi,2023,11,29-03-2024,Tersedia,Strategi investasi untuk investor pemula dan menengah.,0
 9781813808180,Biografi Pahlawan Kemerdekaan,Tim Sejarawan,Jasa Pahlawan,550,Biografi,2017,3,05-04-2024,Tersedia,Kumpulan kisah hidup para pejuang kemerdekaan Indonesia.,0
 9781918118516,Jaringan Neural Tiruan,Dr. Elara Vance,Pustaka Cyber,450,teknologi,2024,12,15-05-2024,Tersedia,Dasar-dasar dan implementasi Jaringan Neural Tiruan terkini.,0
-9789100976285,Hotel Angker di Hutan Terlarang,Luna Nightmare,Bayangan Misteri,280,horor,2023,8,20-11-2023,Tersedia,Sekelompok remaja terjebak dalam hotel angker penuh rahasia kelam.,0
+9789100976285,Hotel Angker di Hutan Terlarang,Luna Nightmare,Bayangan Misteri,280,horor,2023,6,20-11-2023,Tersedia,Sekelompok remaja terjebak dalam hotel angker penuh rahasia kelam.,0
 9783005343835,Operasi Matahari Merah,Rex Thunder,Aksara Laga,320,aksi,2025,15,10-01-2025,Tersedia,Misi berbahaya seorang agen rahasia untuk menghentikan konspirasi global.,0
 9783977746576,Negeri Awan Kristal,Lyra Snow,Imaji Fantasia,510,fantasi,2022,9,03-08-2022,Tersedia,Petualangan epik di dunia sihir dengan naga dan artefak kuno.,0
 9781410243538,Tertawa Sampai Pagi,Koko Wijaya,Gelak Tawa Press,180,comedi,2024,22,01-03-2024,Tersedia,Kumpulan cerita pendek lucu dan absurd tentang kehidupan sehari-hari.,0
@@ -71,7 +71,7 @@ ISBN,JudulBuku,Penulis,Penerbit,JumlahHalaman,Genre,TahunTerbit,Stok,TanggalMasu
 9784671327382,Kolektor Bagian Tubuh,Mortis Cutter,Graveyard Press,230,gore,2024,2,04-04-2024,Tersedia,Detektif veteran memburu pembunuh berantai yang mengoleksi bagian tubuh korbannya.,0
 9785778820630,Cinta Bersemi di Kebun Teh,Rani Puspita,Lembah Asmara,260,romantis,2023,18,08-11-2023,Tersedia,Kisah asmara antara pemilik kebun teh dan seorang turis yang tersesat.,0
 9787072528771,Invasi Robot dari Mars,Jenderal Zorg,Planet Merah Press,440,scifi,2025,10,19-02-2025,Tersedia,Bumi diserang oleh pasukan robot canggih dari planet Mars.,0
-9781368044035,Diari Seorang Penjaga Mercusuar,Pak Tua Samudra,Cahaya Pantai,205,slice of life,2022,11,14-06-2022,Tersedia,Renungan dan kisah sehari-hari seorang penjaga mercusuar di pulau terpencil.,0
+9781368044035,Diari Seorang Penjaga Mercusuar,Pak Tua Samudra,Cahaya Pantai,205,slice of life,2022,10,14-06-2022,Tersedia,Renungan dan kisah sehari-hari seorang penjaga mercusuar di pulau terpencil.,0
 9781908398283,Kutukan Keluarga Bangsawan,Lady Victoria,Manor Kelam,370,drama,2024,7,07-01-2024,Tersedia,Sebuah kutukan turun-temurun menghantui keluarga bangsawan kaya raya.,0
 9783404775421,Memahami Alam Pikiran Kucing,Dr. Meowgaret Catson,Felidae Pustaka,315,psikological,2023,11,01-08-2023,Tersedia,Penelitian ilmiah dan observasi tentang perilaku dan psikologi kucing domestik.,0
 9787352108088,Blockchain dan Mata Uang Kripto,Alex Crypto,Dunia Digital,390,teknologi,2025,14,15-04-2025,Tersedia,Panduan lengkap memahami teknologi blockchain dan investasi mata uang kripto.,0

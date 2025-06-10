@@ -1,7 +1,7 @@
 import os 
 import config
 import importlib
-from Fitur.Umum.controler import buttons
+from controler import buttons
 
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import Fitur_list_buku
 from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku

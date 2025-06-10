@@ -388,6 +388,8 @@
 #     buttons(buttons_parameter)
 
 import pandas as pd
+from tabulate import tabulate
+
 def buat_tabel_bad_character(pola):
     tabel = {}
     panjang = len(pola)
@@ -432,16 +434,23 @@ def pencarian(data, berdasarkan, dicari):
     return hasil
 
 def Fitur_Riwayat_Peminjaman(ID):
-    data = pd.read_csv("./database/Peminjaman.csv")
-    buku = pd.read_csv("./database/Buku.csv")
+    data = pd.read_csv("./database/Peminjaman.csv", dtype={"ISBN": str})
+    buku = pd.read_csv("./database/Buku.csv", dtype={"ISBN": str})
     res = pencarian(data, "ID_User", ID)
-    Judul = []
-
-    for i in res:
-        Judul.append(buku["JudulBuku"][pencarian(buku, "ISBN", data["ISBN"][i])].values[0])
-
-    
-    print(Judul)
-
+    daftar_judul = []
+    if len(res) > 0:
+        for i in res:
+            isbn = data.loc[i, "ISBN"]
+            print(isbn)
+            judul = buku.loc[pencarian(buku, "ISBN", isbn), "JudulBuku"].values[0]
+            tanggal_pinjam = data.loc[i, "Tanggal_Meminjam"] if "Tanggal_Meminjam" in data.columns else "-"
+            tanggal_kembali = data.loc[i, "Tanggal_Kembali"] if "Tanggal_Kembali" in data.columns else "-"
+            status = data.loc[i, "Status_Pengembalian"] if "Status_Pengembalian" in data.columns else "-"
+            daftar_judul.append([len(daftar_judul)+1, judul, isbn, tanggal_pinjam, tanggal_kembali, status])
         
-Fitur_Riwayat_Peminjaman(2)
+        headers = ["No", "Judul Buku", "ISBN", "Tanggal Pinjam", "Tanggal Kembali", "Status"]
+        print(tabulate(daftar_judul, headers=headers, tablefmt="fancy_grid"))
+    else:
+        print("Kamu Belum Meminjam Buku Apapun!")
+        
+Fitur_Riwayat_Peminjaman(1)

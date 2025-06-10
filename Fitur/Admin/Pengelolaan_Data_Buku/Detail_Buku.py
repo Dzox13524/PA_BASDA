@@ -1,6 +1,6 @@
 import config
 
-from Fitur.Umum.controler import clear_terminal,buttons
+from controler import clear_terminal,buttons
 from Fitur.Admin.Pengelolaan_Data_Buku.Hapus_Buku import Fitur_Hapus_Buku
 from Fitur.Admin.Pengelolaan_Data_Buku.Tambah_Stok_Buku import Fitur_Tambah_Stok_Buku
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import sorted_data

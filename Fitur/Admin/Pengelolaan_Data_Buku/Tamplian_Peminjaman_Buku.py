@@ -1,5 +1,5 @@
 import config
-from Fitur.Umum.controler import clear_terminal
+from controler import clear_terminal
 
 def Fitur_Tampilan_Peminjaman_Buku():
     while True:

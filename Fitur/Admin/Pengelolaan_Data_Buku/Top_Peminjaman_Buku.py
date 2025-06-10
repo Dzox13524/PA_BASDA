@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime, timedelta
-from Fitur.Umum.controler import clear_terminal, buttons
+from controler import clear_terminal, buttons
 from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
 
 def buat_tabel_bad_character(pola):

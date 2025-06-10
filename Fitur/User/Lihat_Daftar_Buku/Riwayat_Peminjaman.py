@@ -1,7 +1,8 @@
 import config
 import pandas as pd
-from datetime import datetime, timedelta
-from Fitur.Umum.controler import clear_terminal, buttons
+from tabulate import tabulate
+from controler import clear_terminal, buttons
+from Fitur.User.Lihat_Daftar_Buku.Mengembalikan_Buku import Fitur_Mengembalikan_Buku, Fitur_Membatalkan_Peminjaman_Buku
 
 def buat_tabel_bad_character(pola):
     tabel = {}
@@ -41,100 +42,38 @@ def pencarian(data, berdasarkan, dicari):
     data_list = data[berdasarkan].tolist()
     hasil = []
     for idx, item in enumerate(data_list):
-           if boyer_moore_cocok(str(item).lower(), str(dicari).lower()):
-               hasil.append(idx)
-
+        if boyer_moore_cocok(str(item), str(dicari)):
+            if str(item) == str(dicari):
+                hasil.append(idx)
     return hasil
 
-
-def Fitur_Riwayat_Peminjaman(ID):
-    data = pd.read_csv("./database/Peminjaman.csv")
-    
-    pencarian()
-    pass
-
-# import pandas as pd
-# import os
-# from tabulate import tabulate
-# from Fitur.Umum.controler import clear_terminal
-
-# filePeminjaman = "database/Peminjaman.csv"
+def Fitur_Riwayat_Peminjaman(ID = config.ID_Akun):
+    data = pd.read_csv("./database/Peminjaman.csv", dtype={"ISBN": str})
+    buku = pd.read_csv("./database/Buku.csv", dtype={"ISBN": str})
+    res = pencarian(data, "ID_User", ID)
+    daftar_judul = []
+    clear_terminal()
+    print("======== Data Peminjaman Buku ========\n")
+    buttons_parameter = []
+    if len(res) > 0:
+        for idx, datas in enumerate(res):
+            isbn = data.loc[datas, "ISBN"]
+            idx_Buku = pencarian(buku, "ISBN", isbn)
+            judul = buku.loc[idx_Buku, "JudulBuku"].values[0]
+            tanggal_pinjam = data.loc[datas, "Tanggal_Meminjam"] if "Tanggal_Meminjam" in data.columns else "-"
+            tanggal_kembali = data.loc[datas, "Tanggal_Kembali"] if "Tanggal_Kembali" in data.columns else "-"
+            status = data.loc[datas, "Status_Pengembalian"] if "Status_Pengembalian" in data.columns else "-"
+            daftar_judul.append([len(daftar_judul)+1, judul, isbn, tanggal_pinjam, tanggal_kembali, status])
+            if status == 'Dipinjam':
+                buttons_parameter.append({"Nama": f"Ajukan pengembalian Buku {judul}", "command":str(idx+1), "function":lambda idx = datas, judul = judul:Fitur_Mengembalikan_Buku(idx, judul)})
+            elif status == 'Permintaan_Peminjaman':
+                buttons_parameter.append({"Nama": f"Batalkan Peminjaman Buku {judul}", "command":str(idx+1), "function":lambda idx = datas, judul = judul:Fitur_Membatalkan_Peminjaman_Buku(idx, judul, idx_Buku)})
+        headers = ["No", "Judul Buku", "ISBN", "Tanggal Pinjam", "Tanggal Kembali", "Status"]
+        if len(buttons_parameter) > 0:
+            print(tabulate(daftar_judul, headers=headers, tablefmt="fancy_grid"))
+            buttons(buttons_parameter)
+        else:
+            input(tabulate(daftar_judul, headers=headers, tablefmt="fancy_grid"))
+    else:
+        input("Kamu Belum Meminjam Buku Apapun!")
         
-# def lihatRiwayatPeminjaman():
-#     clear_terminal()
-
-#     print(f"""╔───────────────────────────────────────────────────╗
-# ║               APLIKASI PERPUSTAKAAN               ║
-# ║            === RIWAYAT PEMINJAMAN ===             ║
-# ╚───────────────────────────────────────────────────╝
-# """.strip())
-
-#     try:
-#         df = pd.read_csv(filePeminjaman)
-
-#         if df.empty:
-#             print("Tidak ada data!\n")
-#             input("Tekan Enter untuk kembali...")
-#             clear_terminal()
-#             return
-
-#         total_data = len(df)
-#         if total_data > 100:
-#             page_size = 20
-#             current_page = 0
-#             while True:
-#                 clear_terminal()
-#                 print(f"""╔───────────────────────────────────────────────────╗
-# ║               APLIKASI PERPUSTAKAAN               ║
-# ║            === RIWAYAT PEMINJAMAN ===             ║
-# ╚───────────────────────────────────────────────────╝
-# """.strip())
-
-#                 start_idx = current_page * page_size
-#                 end_idx = start_idx + page_size
-#                 page_data = df.iloc[start_idx:end_idx]
-
-#                 table_data = []
-#                 for i, row in page_data.iterrows():
-#                     table_data.append([
-#                         i + 1, row["ID_User"], row["ID_Buku"], row["Tanggal_Memintam"], row["Status_Pengembalian"], row["Tanggal_Kembali"]
-#                     ])
-
-#                 headers = ["No.", "ID User", "ID Buku", "Tanggal Meminjam", "Status", "Tanggal Pengembalian"]
-#                 print(tabulate(table_data, headers=headers, tablefmt="grid"))
-#                 print("="*115)
-
-#                 # Jika sudah di halaman terakhir, tidak perlu opsi next
-#                 if end_idx >= total_data:
-#                     print("Anda telah berada di halaman terakhir.")
-#                     input("Tekan Enter untuk kembali...")
-#                     clear_terminal()
-#                     break
-
-#                 user_input = input("Tekan [Enter] untuk kembali ke menu utama, ketik [N] untuk halaman selanjutnya: ").strip().lower()
-#                 if user_input == 'n':
-#                     current_page += 1
-#                 else:
-#                     clear_terminal()
-#                     break
-
-#         else:
-#             # Jika data 100 atau kurang, tampilkan semua tanpa page
-#             table_data = []
-#             for i, row in df.iterrows():
-#                 table_data.append([
-#                     i + 1, row["ID_User"], row["ID_Buku"], row["Tanggal_Memintam"], row["Status_Pengembalian"], row["Tanggal_Kembali"]
-#                 ])
-
-#             headers = ["No.", "ID User", "ID Buku", "Tanggal Meminjam", "Status", "Tanggal Pengembalian"]
-#             print(tabulate(table_data, headers=headers, tablefmt="grid"))
-#             print("="*115)
-#             print("\n")
-#             input("Tekan Enter untuk lanjut...")
-#             clear_terminal()
-
-#     except IOError:
-#         print("Anda belum pernah melakukan pemesanan!")
-#         print("\n")
-#         input("Tekan Enter untuk kembali...")
-#         clear_terminal()

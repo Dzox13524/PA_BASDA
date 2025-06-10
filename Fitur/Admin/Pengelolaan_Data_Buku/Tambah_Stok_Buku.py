@@ -1,5 +1,5 @@
 import pandas as pd
-from Fitur.Umum.controler import clear_terminal
+from controler import clear_terminal
 
 def buat_tabel_bad_character(pola):
     tabel = {}

@@ -1,6 +1,6 @@
 import pandas as pd
 from tabulate import tabulate
-from Fitur.Umum.controler import clear_terminal
+from controler import clear_terminal
 
 def shaker_sort(arr, key_list):
     kiri = 0

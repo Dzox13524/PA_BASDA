@@ -1,4 +1,4 @@
-from Fitur.Umum.controler import clear_terminal
+from controler import clear_terminal
 import os 
 
 def menu(email, username, kabupaten, desa, role):
@@ -17,7 +17,7 @@ def menu(email, username, kabupaten, desa, role):
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/User"):
-            if i != "__pycache__":
+            if i not in ["__pycache__", 'register.py']:
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
                 pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""

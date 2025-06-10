@@ -1,5 +1,5 @@
 import pandas as pd
-from Fitur.Umum.controler import clear_terminal,buttons
+from controler import clear_terminal,buttons
 from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
 from Fitur.Admin.Pengelolaan_Data_Buku.Hapus_Buku import Fitur_Hapus_Buku
 from Fitur.Admin.Pengelolaan_Data_Buku.Tambah_Stok_Buku import Fitur_Tambah_Stok_Buku

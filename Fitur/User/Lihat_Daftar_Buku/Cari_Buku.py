@@ -1,6 +1,7 @@
 import pandas as pd
-from Fitur.Umum.controler import clear_terminal,buttons
+from controler import clear_terminal,buttons
 from Fitur.User.Lihat_Daftar_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
+from Fitur.User.Lihat_Daftar_Buku.Pinjam_Buku import Fitur_Pinjam_Buku
 
 def buat_tabel_bad_character(pola):
     tabel = {}
@@ -110,7 +111,7 @@ def Fitur_Cari_Buku():
                 print(f"    Ketersediaan   : {data1['Ketersediaan']}")
                 print(f"    Deskripsi      : {data1['Deskripsi']}")
                 print(f"    Ketersediaan   : {data1['Ketersediaan']}")
-                buttons_parameter.append({"Nama": "Pinjam Buku " + data1["JudulBuku"], "command":"p" + str(idx +1), "function":lambda:None})
+                buttons_parameter.append({"Nama": "Pinjam Buku " + data1["JudulBuku"], "command":"p" + str(idx +1), "function":lambda isbn = data1['ISBN']:Fitur_Pinjam_Buku(isbn)})
         else:
             print("\n  ◎ DATA TIDAK DITEMUKAN\n\n")
             print(f"    Maaf, tidak ada buku yang cocok persis dengan kata kunci {yang_dicari}.\n    Coba periksa kembali ejaan Anda atau lihat bagian rekomendasi di bawah.\n")

@@ -1,6 +1,6 @@
 import config
 
-from Fitur.Umum.controler import clear_terminal
+from controler import clear_terminal
 
 def Fitur_Urutkan_List_Akun():
     while True:

@@ -1,7 +1,7 @@
 import os 
 import config
 import importlib
-from Fitur.Umum.controler import buttons
+from controler import buttons
 
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import Fitur_list_buku
 from Fitur.User.Lihat_Daftar_Buku.Detail_Buku import Fitur_Detail_Buku
@@ -32,7 +32,7 @@ def U_menu_pengelolaan_Buku(urutan = config.urutanBuku):
         buttons_parameter = []
         buttons_parameter.append({"Nama": f"Pilih [1 - {total_buku}] untuk melihat detail Buku", "command":[1, total_buku], "function":Fitur_Detail_Buku})
         for i in os.listdir("./fitur/User/Lihat_Daftar_Buku"):
-            if i.endswith(".py") and i not in ["Menu_Buku.py","List_Buku.py", "Detail_Buku.py", "Hapus_Buku.py", "Tambah_Stok_Buku.py", "Tamplian_Peminjaman_Buku.py"]:
+            if i.endswith(".py") and i not in ["Menu_Buku.py","Pinjam_Buku.py",'Mengembalikan_Buku.py', 'Detail_Buku.py']:
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
                 modul_path = f"Fitur.User.Lihat_Daftar_Buku.{i.replace(".py", "")}"
