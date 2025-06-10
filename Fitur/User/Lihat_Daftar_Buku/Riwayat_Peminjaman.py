@@ -48,7 +48,8 @@ def pencarian(data, berdasarkan, dicari):
 
 
 def Fitur_Riwayat_Peminjaman(ID):
-    # data = pd.read_csv("./")
+    data = pd.read_csv("./database/Peminjaman.csv")
+    
     pencarian()
     pass
 
