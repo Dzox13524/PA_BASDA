@@ -8,6 +8,7 @@ from Fitur.Admin.Pengelolaan_Akun_Pengguna.Menu_Pengelolaan_Akun import menu_pen
 from Fitur.Admin.Pengelolaan_Data_Buku.Menu_Pengelolaan_Buku import menu_pengelolaan_Buku
 
 from Fitur.User.Lihat_Daftar_Buku.Menu_Buku import U_menu_pengelolaan_Buku
+from Fitur.User.Kelola_Akun.Lihat_Profil import Fitur_Detail_Akun
 while True:
         clear_terminal()
         print("""╔───────────────────────────────────────────────────╗
@@ -29,7 +30,7 @@ while True:
                 print(Register())
             elif inputan == 2:
                     email, username, kabupaten, desa, role,ID_User = login()
-                    config.ID_Akun = ID_User
+                    config.ID_Akun = int(ID_User)
                     if username and kabupaten and desa and role:
                         while True:
                             menu(email, username, kabupaten, desa, role)
@@ -52,7 +53,7 @@ while True:
                                 pilihan = input('Pilih menu: ')
                                 match pilihan:
                                     case '1':
-                                        clear_terminal()
+                                        Fitur_Detail_Akun()
                                     case '2':
                                         U_menu_pengelolaan_Buku()
                                     case '3':

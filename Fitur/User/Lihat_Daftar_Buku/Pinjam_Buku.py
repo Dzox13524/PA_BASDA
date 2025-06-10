@@ -74,6 +74,7 @@ def Pinjam_Buku(ISBN, Waktu):
 def Fitur_Pinjam_Buku(ISBN):
     data = pd.read_csv("./database/Buku.csv")
     hasil_idx = pencarian(data, "ISBN", ISBN)
+    clear_terminal()
     print(f"Kamu Ingin Meminjam {data.loc[hasil_idx, "JudulBuku"]} Berapa Hari ?")
     buttons_parameter = []
     waktu = [3,5,7]

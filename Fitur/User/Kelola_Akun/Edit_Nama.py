@@ -1,11 +1,11 @@
 import config
 import pandas as pd
 
-def Fitur_Edit_Password():
+def Fitur_Edit_Nama():
     data = pd.read_csv("./database/Akun.csv")
-    Password_Baru = input("Masukkan Password baru: ")
+    nama_baru = input("Masukkan nama baru: ")
     index_list = data.index[data['ID'] == config.ID_Akun].tolist()
     idx = index_list[0]
-    data.loc[idx, "Password"] = Password_Baru
+    data.loc[idx, "Name"] = nama_baru
     data.to_csv("./database/Akun.csv", index=False)
     input("Data berhasil disimpan.\n")
