@@ -18,12 +18,12 @@ def List_Peminjaman(status_filter, awal, akhir, halaman):
         daftar = gabung_semua
     total_halaman = (len(daftar) + 50 - 1) // 50
     tabel_data = daftar[[
-        'JudulBuku', 'Name', 'Tanggal_Meminjam', 'Status_Pengembalian', "Tanggal_Kembali"
+        'JudulBuku', 'Name', 'Durasi_Peminjaman', 'Tanggal_Meminjam', 'Status_Pengembalian', "Tanggal_Kembali"
     ]][awal:akhir]
     tabel_data.insert(0, "No", range(1, len(tabel_data) + 1))
 
     tabel_data.columns = [
-        "No", 'Judul Buku', 'Nama User', 'Tanggal Peminjaman', 'Status', 'Tanggal Kembali'
+        "No", 'Judul Buku', 'Nama User', 'Durasi Meminjam', 'Tanggal Peminjaman', 'Status', 'Tanggal Kembali'
     ]
     tabel_data['Tanggal Kembali'] = tabel_data['Tanggal Kembali'].fillna('-')
 
