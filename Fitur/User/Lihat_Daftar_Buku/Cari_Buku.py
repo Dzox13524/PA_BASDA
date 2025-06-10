@@ -38,20 +38,24 @@ def boyer_moore_cocok(teks, pola):
 
 def pencarian(data, berdasarkan, dicari):
     data_list = data[berdasarkan].tolist()
-    hasil = {}
-    hasil["rekomendasi"] = []
-    hasil["cocok"] = []
+    hasil = {
+        "rekomendasi": [],
+        "cocok": []
+    }
+    sudah_cocok = []
+    
     data_dicari = dicari.split(" ")
     for i in data_dicari:
-        data_dicari = i.lower()
-
+        kata = i.lower()
         for idx, item in enumerate(data_list):
-            if boyer_moore_cocok(str(item).lower(), data_dicari):
-                
-                if str(item).lower() == dicari.lower():
-                    hasil["cocok"].append({"ditemukan":item, "index":idx})
+            item_lower = str(item).lower()
+            if boyer_moore_cocok(item_lower, kata):
+                if item_lower == dicari.lower():
+                    if idx not in sudah_cocok:
+                        hasil["cocok"].append({"ditemukan": item, "index": idx})
+                        sudah_cocok.append(idx)
                 else:
-                    hasil["rekomendasi"].append({"ditemukan":item, "index":idx})
+                    hasil["rekomendasi"].append({"ditemukan": item, "index": idx})
 
     return hasil
 
