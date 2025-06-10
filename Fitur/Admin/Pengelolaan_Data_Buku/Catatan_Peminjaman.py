@@ -31,7 +31,7 @@ def List_Peminjaman(status_filter, awal, akhir, halaman):
     hasil += f"\nTotal Peminjaman: {len(daftar)} | Halaman {halaman} dari {total_halaman}"
     return hasil, total_halaman
 
-def Fitur_List_Peminjaman_Buku():
+def Fitur_Catatan_Peminjaman():
     awal = 0
     akhir = 50
     halaman = 1
@@ -50,7 +50,7 @@ def Fitur_List_Peminjaman_Buku():
             awal = akhir - 50
             halaman -= 1
             return
-        hasil, total_halaman =List_Peminjaman()
+        hasil, total_halaman =List_Peminjaman("",awal, akhir, halaman)
         print(hasil)
         buttons_parameter = []
         if halaman == 1:
