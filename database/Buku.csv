@@ -1,5 +1,5 @@
 ISBN,JudulBuku,Penulis,Penerbit,JumlahHalaman,Genre,TahunTerbit,Stok,TanggalMasuk,Ketersediaan,Deskripsi,TotalDipinjam
-9784628904106,Python Dasar,Andi Wijaya,Informatika,250,Komputer,2020,3,15-01-2023,Tersedia,Buku pemrograman Python untuk pemula.,0
+9784628904106,Python Dasar,Andi Wijaya,Informatika,250,Komputer,2020,13,15-01-2023,Tersedia,Buku pemrograman Python untuk pemula.,0
 9788258965963,Laskar Pelangi,Andrea Hirata,Bentang Pustaka,529,Fiksi,2005,5,10-02-2023,Tersedia,Novel inspiratif berlatar Belitung.,0
 9783689327907,Bumi Manusia,Pramoedya Ananta Toer,Hasta Mitra,535,Fiksi Sejarah,1980,4,20-03-2023,Tersedia,Bagian pertama dari Tetralogi Buru,0
 9784336091198,Cantik Itu Luka,Eka Kurniawan,Gramedia Pustaka Utama,537,Fiksi Sastra,2002,2,05-04-2023,Tersedia,Kisah epik keluarga dengan latar sejarah Indonesia.,0
@@ -65,14 +65,13 @@ ISBN,JudulBuku,Penulis,Penerbit,JumlahHalaman,Genre,TahunTerbit,Stok,TanggalMasu
 9782267150669,Rahasia Gelap Sang Politikus,Marcus Integrity,Panggung Belakang,380,drama,2023,6,03-09-2023,Tersedia,Terungkapnya skandal korupsi dan permainan kotor seorang politikus ternama.,0
 9788021749465,Terapi Mimpi Buruk,Dr. Alan Spectra,Alam Bawah Sadar Press,300,psikological,2025,9,24-01-2025,Tersedia,Seorang terapis membantu pasien mengatasi mimpi buruk berulang yang mengancam kewarasannya.,0
 9789667413100,Revolusi Bio-informatika,Dr. Liana Genom,Sains Masa Depan,420,teknologi,2022,12,01-07-2022,Tersedia,Peran bio-informatika dalam memecahkan misteri genetika dan pengembangan obat.,0
-9784959004277,Desa Penari Ular,Maya Sari,Klenik Nusantara,290,horor,2024,4,15-02-2024,Tersedia,Tim peneliti budaya tersesat di desa terpencil dengan ritual pemujaan ular yang mengerikan.,0
 9783658432214,Kejar Tayang Misi Mustahil,Alex Viper,Laga Cepat,310,aksi,2023,16,29-06-2023,Tersedia,Seorang kurir khusus harus mengantarkan paket rahasia melewati berbagai rintangan mematikan.,0
 9788731712626,Gerbang Dunia Bawah Tanah,Raka Shadowhand,Petualang Gelap,500,fantasi,2025,10,01-05-2025,Tersedia,Pencarian gerbang mitos yang menghubungkan dunia manusia dengan dunia makhluk gaib.,0
 9789693218810,Klub Komedi Anti Galau,Budi Ceria,Senyum Manis Publishing,190,comedi,2022,20,10-10-2022,Tersedia,Usaha sekelompok orang membangun klub komedi untuk menyebarkan tawa di kota mereka.,0
 9784671327382,Kolektor Bagian Tubuh,Mortis Cutter,Graveyard Press,230,gore,2024,2,04-04-2024,Tersedia,Detektif veteran memburu pembunuh berantai yang mengoleksi bagian tubuh korbannya.,0
 9785778820630,Cinta Bersemi di Kebun Teh,Rani Puspita,Lembah Asmara,260,romantis,2023,18,08-11-2023,Tersedia,Kisah asmara antara pemilik kebun teh dan seorang turis yang tersesat.,0
 9787072528771,Invasi Robot dari Mars,Jenderal Zorg,Planet Merah Press,440,scifi,2025,10,19-02-2025,Tersedia,Bumi diserang oleh pasukan robot canggih dari planet Mars.,0
-9781368044035,Diari Seorang Penjaga Mercusuar,Pak Tua Samudra,Cahaya Pantai,205,slice of life,2022,15,14-06-2022,Tersedia,Renungan dan kisah sehari-hari seorang penjaga mercusuar di pulau terpencil.,0
+9781368044035,Diari Seorang Penjaga Mercusuar,Pak Tua Samudra,Cahaya Pantai,205,slice of life,2022,11,14-06-2022,Tersedia,Renungan dan kisah sehari-hari seorang penjaga mercusuar di pulau terpencil.,0
 9781908398283,Kutukan Keluarga Bangsawan,Lady Victoria,Manor Kelam,370,drama,2024,7,07-01-2024,Tersedia,Sebuah kutukan turun-temurun menghantui keluarga bangsawan kaya raya.,0
 9783404775421,Memahami Alam Pikiran Kucing,Dr. Meowgaret Catson,Felidae Pustaka,315,psikological,2023,11,01-08-2023,Tersedia,Penelitian ilmiah dan observasi tentang perilaku dan psikologi kucing domestik.,0
 9787352108088,Blockchain dan Mata Uang Kripto,Alex Crypto,Dunia Digital,390,teknologi,2025,14,15-04-2025,Tersedia,Panduan lengkap memahami teknologi blockchain dan investasi mata uang kripto.,0
@@ -299,7 +298,7 @@ ISBN,JudulBuku,Penulis,Penerbit,JumlahHalaman,Genre,TahunTerbit,Stok,TanggalMasu
 9788555235580,Skandal Perselingkuhan CEO dengan Sekretaris,Investigator Swasta,Panas Dingin Korporat,470,drama,2023,7,17-06-2023,Tersedia,Terbongkarnya skandal perselingkuhan CEO perusahaan besar yang menggemparkan.,0
 9789184158299,Mengatasi Fobia Sosial dengan Terapi Kognitif,Dr. Berani Bicara,Zona Nyaman Press,385,psikological,2025,13,12-02-2025,Tersedia,Panduan praktis mengatasi fobia sosial dan meningkatkan kepercayaan diri dengan terapi perilaku kognitif.,0
 9784191323554,Pulau Boneka Arwah di Tengah Samudra,Pelaut Terkutuk,Laut Berkabut Hantu,390,horor,2024,0,29-01-2024,Kosong,Kisah mengerikan para pelaut yang terdampar di pulau terpencil yang dipenuhi boneka berarwah.,0
-9783485560389,Agen Ganda di Sarang Teroris Internasional,Alex Double Agent,Misi Penyamaran Global,450,aksi,2023,19,02-07-2023,Tersedia,Seorang agen ganda menyusup ke organisasi teroris untuk membongkar rencana jahat mereka.,0
+9783485560389,Agen Ganda di Sarang Teroris Internasional,Alex Double Agent,Misi Penyamaran Global,450,aksi,2023,40,02-07-2023,Tersedia,Seorang agen ganda menyusup ke organisasi teroris untuk membongkar rencana jahat mereka.,0
 9784828916665,Kerajaan Satwa Ajaib Penjaga Hutan Purba,Raja Simba Perkasa,Sihir Fauna Fantasi,605,fantasi,2025,12,13-04-2025,Tersedia,Para satwa ajaib dengan kemampuan sihir bersatu melindungi hutan purba dari kehancuran.,0
 9786816620039,Kumpulan Cerita Gokil Salah Alamat,Kurir Linglung,Paket Nyasar Lucu,280,comedi,2022,27,06-10-2022,Tersedia,Kejadian-kejadian lucu akibat salah alamat yang dialami seorang kurir pengantar paket.,0
 9786671111289,Koleksi Video Snuff Ilegal di Deep Web,Detektif Cyber Crime,Jejak Digital Berdarah,340,gore,2024,4,22-05-2024,Tersedia,Investigasi polisi siber mengungkap jaringan pembuatan dan penjualan video penyiksaan di deep web.,0

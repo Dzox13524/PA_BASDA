@@ -14,16 +14,16 @@ def Fitur_Urutkan_List_Akun():
         pilihan = input("Masukkan Pilihan Anda: ")
         match pilihan:
             case '1':
-                config.urutan = "Name"
+                config.urutanUser = "Name"
                 break
             case '2':
-                config.urutan = "Nomor_Telepon"
+                config.urutanUser = "Nomor_Telepon"
                 break
             case '3':
-                config.urutan = "Kecamatan"
+                config.urutanUser = "Kecamatan"
                 break
             case '4':
-                config.urutan = "Desa"
+                config.urutanUser = "Desa"
                 break
             case '5':
                 input("Ketik Enter Untuk Kemballi")

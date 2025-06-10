@@ -15,9 +15,8 @@ def shaker_sort(arr, key_list):
                 arr[i], arr[i-1] = arr[i-1], arr[i]
         kiri += 1
 
-data = pd.read_csv("database/Akun.csv")
-
 def sorted_data(urutan):
+    data = pd.read_csv("database/Akun.csv")
     usernames = data[urutan].tolist()
     indices = list(range(len(usernames)))
     shaker_sort(indices, usernames)
@@ -26,6 +25,7 @@ def sorted_data(urutan):
     return sorted_data
 
 def Fitur_list_akun(urutan, awal, akhir, halaman):
+    data = pd.read_csv("database/Akun.csv")
     total_halaman = (len(data) + 50 - 1) // 50
     usernames = data[urutan].tolist()
     indices = list(range(len(usernames)))

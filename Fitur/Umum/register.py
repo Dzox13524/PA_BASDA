@@ -36,7 +36,7 @@ def Register():
                         Desa = int(input('Masukkan angka Desa: ')) - 1
                         if  0 <= Desa < len(ListLokasi[Kecamatan]["desa"]):
                             database = pd.read_csv(lokasiDB + 'Akun.csv')
-                            if (NomorHp.isdigit == False):
+                            if not NomorHp.isdigit():
                                 input('Masukkan Nomor Hp!')
                                 return ''
                             if '@gmail.com' not in email: 

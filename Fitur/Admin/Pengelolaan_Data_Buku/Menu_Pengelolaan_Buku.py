@@ -1,67 +1,53 @@
-from Fitur.Umum.controler import clear_terminal
-from tabulate import tabulate
-from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import sorted_data
-from Fitur.Admin.Pengelolaan_Data_Buku.Tambah_Buku import TambahBuku
 import os 
+import config
+import importlib
+from Fitur.Umum.controler import buttons
 
-def menu_pengelolaan_Buku(username, kabupaten, role, urutan = "JudulBuku"):
+from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import Fitur_list_buku
+from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku
+
+
+def menu_pengelolaan_Buku(urutan = config.urutanBuku):
     awal = 0
     akhir = 50
     halaman = 1
-    data = sorted_data(urutan)[awal:akhir]
-    total_halaman = (len(sorted_data(urutan)) + 50 - 1) // 50
-    while True:
+    def lanjut():
+        nonlocal awal, akhir, halaman
+        awal = akhir
+        akhir += 50
+        halaman += 1
+        return
+    
+    def kembali():
+        nonlocal awal, akhir, halaman
+        akhir = awal
+        awal = akhir - 50
+        halaman -= 1
+        return
+    loop = True
+    while loop:
+        result, total_buku, total_halaman = Fitur_list_buku(config.urutanBuku, awal, akhir, halaman)
+        result += f"\nUrutan Berdasarkan [{config.urutanBuku}]\n"
         idx = 1
-        clear_terminal()
-        result = tabulate(data[["No","ISBN", "JudulBuku", "Penulis", "Genre", "TahunTerbit", "Stok"]], headers=["No","ISBN", "JudulBuku", "Penulis", "Genre", "TahunTerbit", "Stok"], tablefmt="fancy_grid", showindex=False, disable_numparse=True)
-        result += f"\nTotal User: {len(sorted_data(urutan))} | Halaman {halaman} dari {total_halaman}\n\n"
-        result += "---\n"
+        buttons_parameter = []
+        buttons_parameter.append({"Nama": f"Pilih [1 - {total_buku}] untuk melihat detail Buku", "command":[1, total_buku], "function":Fitur_Detail_Buku})
         for i in os.listdir("./fitur/Admin/Pengelolaan_Data_Buku"):
-            if i.endswith(".py") and i != "Menu_Data_Buku.py" and i != "List_Buku.py":
+            if i.endswith(".py") and i not in ["Menu_Pengelolaan_Buku.py","List_Buku.py", "Detail_Buku.py", "Hapus_Buku.py", "Tambah_Stok_Buku.py", "Tamplian_Peminjaman_Buku.py"]:
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
-                result += f"""[{idx}] {nama}\n"""
+                modul_path = f"Fitur.Admin.Pengelolaan_Data_Buku.{i.replace(".py", "")}"
+                modul = importlib.import_module(modul_path)
+                if nama[0].lower() not in [btn["command"] for btn in buttons_parameter]:
+                    buttons_parameter.append({"Nama": nama, "command":nama[0].lower(), "function":getattr(modul, f"Fitur_{i.replace(".py", "")}")})
+                else: 
+                    buttons_parameter.append({"Nama": nama, "command":nama[0:2].lower(), "function":getattr(modul, f"Fitur_{i.replace(".py", "")}")})
                 idx +=1
         if halaman == 1:
-            result += "[L] Halaman Selanjutnya\n"
+            buttons_parameter.append({"Nama": "Halaman Selanjutnya", "command":"l", "function":lanjut})
         elif halaman < total_halaman:
-            result += "[P] Halaman Sebelumnya | [L] Halaman Selanjutnya\n"
+            buttons_parameter.append({"Nama": "Halaman Sebelumnya", "command":"p", "function":kembali})
+            buttons_parameter.append({"Nama": "Halaman Selanjutnya", "command":"l", "function":lanjut})
         else:
-            result += "[P] Halaman Sebelumnya\n"
-        result += f"""[{idx}] Keluar\n"""
-        result += "---\n"
+            buttons_parameter.append({"Nama": "Halaman Sebelumnya", "command":"p", "function":kembali})
         print(result)
-        pilihan = input('Pilih menu: ').strip().lower()
-        match pilihan:
-            case '1':
-                clear_terminal()
-            case '2':
-                clear_terminal()
-            case '3':
-                clear_terminal()
-                print('Log Out')
-                break
-            case '4':
-                TambahBuku()
-                clear_terminal()
-            case '5':
-                clear_terminal()
-            case "p":
-                if halaman > 1:
-                    akhir = awal
-                    awal = akhir - 50
-                    halaman -= 1
-                continue
-            case "l":
-                if halaman < total_halaman:
-                    awal = akhir
-                    akhir += 50
-                    halaman += 1
-                continue
-            case '6':
-                clear_terminal()
-            case '7':
-                clear_terminal()
-                break
-            case ValueError:
-                clear_terminal()
+        loop = buttons(buttons_parameter)

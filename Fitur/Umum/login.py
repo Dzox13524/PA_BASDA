@@ -14,4 +14,4 @@ def login():
     else: 
         input('Email tidak ada!. Harap registrasi terlebih dahulu!')
         return None, None, None, None, None
-    return data['Email'].values[0], data['Name'].values[0], data['Kecamatan'].values[0],data['Desa'].values[0], role
+    return data['Email'].values[0], data['Name'].values[0], data['Kecamatan'].values[0],data['Desa'].values[0], role, data["ID"].values[0]

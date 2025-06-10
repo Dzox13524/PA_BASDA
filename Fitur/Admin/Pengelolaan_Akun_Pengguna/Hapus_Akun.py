@@ -1,12 +1,57 @@
 import pandas as pd
 from Fitur.Umum.controler import clear_terminal
 
+def buat_tabel_bad_character(pola):
+    tabel = {}
+    panjang = len(pola)
+    for i in range(panjang - 1):
+        tabel[pola[i]] = panjang - 1 - i
+    return tabel
 
-def Fitur_Hapus_Akun(idx):
+def boyer_moore_cocok(teks, pola):
+    panjang_teks = len(teks)
+    panjang_pola = len(pola)
+
+    if panjang_pola == 0:
+        return True
+
+    tabel = buat_tabel_bad_character(pola)
+    posisi = 0
+
+    while posisi <= panjang_teks - panjang_pola:
+        indeks = panjang_pola - 1
+
+        while indeks >= 0 and pola[indeks] == teks[posisi + indeks]:
+            indeks -= 1
+
+        if indeks < 0:
+            return True
+        else:
+            karakter = teks[posisi + indeks]
+            if karakter in tabel:
+                lompat = tabel[karakter]
+            else:
+                lompat = panjang_pola
+            posisi += max(1, lompat)
+    return False
+
+def pencarian(data, berdasarkan, dicari):
+    data_list = data[berdasarkan].tolist()
+    hasil = ''
+    for idx, item in enumerate(data_list):
+           if boyer_moore_cocok(str(item).lower(), str(dicari).lower()):
+               hasil = idx
+
+    return hasil
+
+def Fitur_Hapus_Akun(ID):
     data = pd.read_csv("database/Akun.csv")
+    hasil_idx = pencarian(data, "ID", ID)
+    if hasil_idx is None:
+        input(f"[ERROR] Akun dengan ID '{ID}' tidak ditemukan.")
+        return
     clear_terminal()
-    akun = data.iloc[idx]["Name"]
-    data = data.drop(index=idx).reset_index(drop=True)
+    nama = data.loc[hasil_idx, "Name"]
+    data = data.drop(index=hasil_idx).reset_index(drop=True)
     data.to_csv("database/Akun.csv", index=False)
-    input(f"Akun {akun} Berhasil Dihapus!")
-    pass
+    input(f"Akun {nama} Berhasil Dihapus!")

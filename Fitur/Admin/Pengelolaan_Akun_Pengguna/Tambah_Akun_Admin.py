@@ -1,7 +1,6 @@
 import pandas as pd
 from Fitur.Umum.controler import clear_terminal
 
-import pandas as pd
 lokasiDB = 'database/'
 def Fitur_Tambah_Akun_Admin():
     database = pd.read_csv(lokasiDB + 'ListLokasi.csv')
@@ -42,7 +41,7 @@ def Fitur_Tambah_Akun_Admin():
                         Desa = int(input('Masukkan angka Desa: ')) - 1
                         if  0 <= Desa < len(ListLokasi[Kecamatan]["desa"]):
                             database = pd.read_csv(lokasiDB + 'Akun.csv')
-                            if (NomorHp.isdigit == False):
+                            if not NomorHp.isdigit():
                                 input('Nomor hp Yang Anda Masukkan Tidak Falid!')
                                 return ''
                             elif NomorHp in database["Nomor_Telepon"]:
@@ -69,7 +68,7 @@ def Fitur_Tambah_Akun_Admin():
                             datanew.to_csv(lokasiDB + "Akun.csv",mode='a',header=False ,index=False)
                             clear_terminal()
                             print("───────────────────────────────────────────")
-                            print(f"          AKUN ADMIN TEKAH DIBUAT         ")
+                            print("          AKUN ADMIN TEKAH DIBUAT         ")
                             print("───────────────────────────────────────────")
                             print(f"    ID Akun    : {data.iloc[idx]['ID']}")
                             print(f"    Nama       : {data.iloc[idx]['Name']}")

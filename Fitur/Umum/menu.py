@@ -17,7 +17,7 @@ def menu(email, username, kabupaten, desa, role):
 ║│                    LIST MENU                    │║
 ║├─────────────────────────────────────────────────┤║\n"""
         for i in os.listdir("./fitur/User"):
-            if i.endswith(".py") and i != "menu.py":
+            if i != "__pycache__":
                 nama = i.replace(".py", "")
                 nama = nama.replace("_", " ")
                 pembuka += f"""║├▶ {idx}. {nama}{" "*(45-len(str(idx) + nama))}│║\n"""
