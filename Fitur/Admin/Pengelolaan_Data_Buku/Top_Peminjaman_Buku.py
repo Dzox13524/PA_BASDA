@@ -1,50 +1,7 @@
 import pandas as pd
 from datetime import datetime, timedelta
-from controler import clear_terminal, buttons
+from controler import clear_terminal, buttons, Pencarian_String
 from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
-
-def buat_tabel_bad_character(pola):
-    tabel = {}
-    panjang = len(pola)
-    for i in range(panjang - 1):
-        tabel[pola[i]] = panjang - 1 - i
-    return tabel
-
-def boyer_moore_cocok(teks, pola):
-    panjang_teks = len(teks)
-    panjang_pola = len(pola)
-
-    if panjang_pola == 0:
-        return True
-
-    tabel = buat_tabel_bad_character(pola)
-    posisi = 0
-
-    while posisi <= panjang_teks - panjang_pola:
-        indeks = panjang_pola - 1
-
-        while indeks >= 0 and pola[indeks] == teks[posisi + indeks]:
-            indeks -= 1
-
-        if indeks < 0:
-            return True
-        else:
-            karakter = teks[posisi + indeks]
-            if karakter in tabel:
-                lompat = tabel[karakter]
-            else:
-                lompat = panjang_pola
-            posisi += max(1, lompat)
-    return False
-
-def pencarian(data, berdasarkan, dicari):
-    data_list = data[berdasarkan].tolist()
-    hasil = ''
-    for idx, item in enumerate(data_list):
-           if boyer_moore_cocok(str(item).lower(), str(dicari).lower()):
-               hasil = idx
-
-    return hasil
 
 def shaker_sort(arr, key_dict):
     kiri = 0
@@ -109,7 +66,7 @@ def Fitur_Top_Peminjaman_Buku():
     print("--------------------------------------------------\n")
     if len(judul_list) > 0:
         for idx, judul in enumerate(judul_list[:5], start=1):
-            indeks_buku = pencarian(buku, 'JudulBuku', judul)
+            indeks_buku = Pencarian_String(buku, 'JudulBuku', judul)
             print(f"{idx}. Judul Buku  : {buku["JudulBuku"][indeks_buku]}")
             print(f"   Penulis     : {buku["Penulis"][indeks_buku]}")
             print(f"   Genre       : {buku["Genre"][indeks_buku]}")

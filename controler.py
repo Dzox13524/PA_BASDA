@@ -1,6 +1,94 @@
 import os
 import subprocess
 
+# === Searching (BOOYER MOORE) === 
+
+def buat_tabel_bad_character(pola):
+    tabel = {}
+    panjang = len(pola)
+    for i in range(panjang - 1):
+        tabel[pola[i]] = panjang - 1 - i
+    return tabel
+
+def boyer_moore_cocok(teks, pola):
+    panjang_teks = len(teks)
+    panjang_pola = len(pola)
+
+    if panjang_pola == 0:
+        return True
+
+    tabel = buat_tabel_bad_character(pola)
+    posisi = 0
+
+    while posisi <= panjang_teks - panjang_pola:
+        indeks = panjang_pola - 1
+
+        while indeks >= 0 and pola[indeks] == teks[posisi + indeks]:
+            indeks -= 1
+
+        if indeks < 0:
+            return True
+        else:
+            karakter = teks[posisi + indeks]
+            if karakter in tabel:
+                lompat = tabel[karakter]
+            else:
+                lompat = panjang_pola
+            posisi += max(1, lompat)
+    return False
+
+
+# === Beberapa Metode Pencarian === 
+def Pencarian_Dengan_Rekomendasi(data, berdasarkan, dicari):
+    data_list = data[berdasarkan].tolist()
+    hasil = {
+        "rekomendasi": [],
+        "cocok": []
+    }
+    sudah_cocok = []
+    
+    data_dicari = dicari.split(" ")
+    for i in data_dicari:
+        kata = i.lower()
+        for idx, item in enumerate(data_list):
+            item_lower = str(item).lower()
+            if boyer_moore_cocok(item_lower, kata):
+                if item_lower == dicari.lower():
+                    if idx not in sudah_cocok:
+                        hasil["cocok"].append({"ditemukan": item, "index": idx})
+                        sudah_cocok.append(idx)
+                else:
+                    if idx not in sudah_cocok:
+                        hasil["rekomendasi"].append({"ditemukan": item, "index": idx})
+                        sudah_cocok.append(idx)
+    return hasil
+
+def Pencarian_String(data, berdasarkan, dicari):
+    data_list = data[berdasarkan].tolist()
+    hasil = ''
+    for idx, item in enumerate(data_list):
+           if boyer_moore_cocok(str(item).lower(), str(dicari).lower()):
+               hasil = idx
+    return hasil
+
+def Pencarian_Hasil_List(data, berdasarkan, dicari):
+    data_list = data[berdasarkan].tolist()
+    hasil = []
+    for idx, item in enumerate(data_list):
+        if boyer_moore_cocok(str(item), str(dicari)):
+            if str(item) == str(dicari):
+                hasil.append(idx)
+    return hasil
+
+
+
+
+
+
+
+
+
+
 # === clear terminal ===
 def clear_terminal():
     if os.name == 'nt':
@@ -8,6 +96,7 @@ def clear_terminal():
     else:
         subprocess.call('clear')
 
+# === Buttons ===
 def buttons(paramaeter =[]):
     text = '--- PILIH OPSI ---\n\n'
     for data in paramaeter:

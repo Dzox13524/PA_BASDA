@@ -1,65 +1,8 @@
 import pandas as pd
-from controler import clear_terminal,buttons
+from controler import clear_terminal,buttons, Pencarian_Dengan_Rekomendasi
 from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
 from Fitur.Admin.Pengelolaan_Data_Buku.Hapus_Buku import Fitur_Hapus_Buku
 from Fitur.Admin.Pengelolaan_Data_Buku.Tambah_Stok_Buku import Fitur_Tambah_Stok_Buku
-
-def buat_tabel_bad_character(pola):
-    tabel = {}
-    panjang = len(pola)
-    for i in range(panjang - 1):
-        tabel[pola[i]] = panjang - 1 - i
-    return tabel
-
-def boyer_moore_cocok(teks, pola):
-    panjang_teks = len(teks)
-    panjang_pola = len(pola)
-
-    if panjang_pola == 0:
-        return True
-
-    tabel = buat_tabel_bad_character(pola)
-    posisi = 0
-
-    while posisi <= panjang_teks - panjang_pola:
-        indeks = panjang_pola - 1
-
-        while indeks >= 0 and pola[indeks] == teks[posisi + indeks]:
-            indeks -= 1
-
-        if indeks < 0:
-            return True
-        else:
-            karakter = teks[posisi + indeks]
-            if karakter in tabel:
-                lompat = tabel[karakter]
-            else:
-                lompat = panjang_pola
-            posisi += max(1, lompat)
-    return False
-
-def pencarian(data, berdasarkan, dicari):
-    data_list = data[berdasarkan].tolist()
-    hasil = {
-        "rekomendasi": [],
-        "cocok": []
-    }
-    sudah_cocok = []
-    
-    data_dicari = dicari.split(" ")
-    for i in data_dicari:
-        kata = i.lower()
-        for idx, item in enumerate(data_list):
-            item_lower = str(item).lower()
-            if boyer_moore_cocok(item_lower, kata):
-                if item_lower == dicari.lower():
-                    if idx not in sudah_cocok:
-                        hasil["cocok"].append({"ditemukan": item, "index": idx})
-                        sudah_cocok.append(idx)
-                else:
-                    hasil["rekomendasi"].append({"ditemukan": item, "index": idx})
-
-    return hasil
 
 mencari = ""
 def mencari_berdasarkan(berdasarkan):
@@ -87,7 +30,7 @@ def Fitur_Cari_Buku():
         if mencari == "":
             return
         yang_dicari = input("Kamu Mau Mencari Apa: ")
-        result = pencarian(data, mencari, yang_dicari)
+        result = Pencarian_Dengan_Rekomendasi(data, mencari, yang_dicari)
         clear_terminal()
         print("───────────────────────────────────────────")
         print("              HASIL PENCARIAN")
