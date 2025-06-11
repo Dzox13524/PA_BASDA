@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime, timedelta
-from controler import clear_terminal, buttons, Pencarian_String, shaker_sort
+from controler import clear_terminal, buttons, Pencarian_String, shaker_sort_terbesar
 from Fitur.User.Lihat_Daftar_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
 
 def Fitur_Top_Peminjaman_Buku():
@@ -46,7 +46,7 @@ def Fitur_Top_Peminjaman_Buku():
         jumlah_peminjaman[judul] = jumlah_peminjaman.get(judul, 0) + 1
 
     judul_list = list(jumlah_peminjaman.keys())
-    shaker_sort(judul_list, jumlah_peminjaman)
+    shaker_sort_terbesar(judul_list, jumlah_peminjaman)
     buttons_parameter = []
     clear_terminal()
     print(f"\n--- {judul_output} (5 Teratas) ---")
