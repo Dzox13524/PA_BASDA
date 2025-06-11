@@ -1,6 +1,5 @@
 import config
 import pandas as pd
-from datetime import datetime, timedelta
 from controler import clear_terminal, buttons
 
 def buat_tabel_bad_character(pola):

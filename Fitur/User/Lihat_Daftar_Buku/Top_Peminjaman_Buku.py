@@ -1,20 +1,7 @@
 import pandas as pd
 from datetime import datetime, timedelta
-from controler import clear_terminal, buttons, Pencarian_String
+from controler import clear_terminal, buttons, Pencarian_String, shaker_sort
 from Fitur.User.Lihat_Daftar_Buku.Detail_Buku import Fitur_Detail_Buku_berdasarkan
-
-def shaker_sort(arr, key_dict):
-    kiri = 0
-    kanan = len(arr) - 1
-    while kiri < kanan:
-        for i in range(kiri, kanan):
-            if key_dict[arr[i]] < key_dict[arr[i+1]]:
-                arr[i], arr[i+1] = arr[i+1], arr[i]
-        kanan -= 1
-        for i in range(kanan, kiri, -1):
-            if key_dict[arr[i]] > key_dict[arr[i-1]]:
-                arr[i], arr[i-1] = arr[i-1], arr[i]
-        kiri += 1
 
 def Fitur_Top_Peminjaman_Buku():
     clear_terminal()

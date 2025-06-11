@@ -32,9 +32,12 @@ def boyer_moore_cocok(teks, pola):
             karakter = teks[posisi + indeks]
             if karakter in tabel:
                 lompat = tabel[karakter]
+                if lompat <= 0:
+                    lompat = 1
             else:
                 lompat = panjang_pola
-            posisi += max(1, lompat)
+            posisi += lompat
+
     return False
 
 
@@ -80,15 +83,20 @@ def Pencarian_Hasil_List(data, berdasarkan, dicari):
                 hasil.append(idx)
     return hasil
 
-
-
-
-
-
-
-
-
-
+# === Seker sort ===
+def shaker_sort(arr, key_list):
+    kiri = 0
+    kanan = len(arr) - 1
+    while kiri < kanan:
+        for i in range(kiri, kanan):
+            if key_list[arr[i]] > key_list[arr[i+1]]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+        kanan -= 1
+        for i in range(kanan, kiri, -1):
+            if key_list[arr[i]] < key_list[arr[i-1]]:
+                arr[i], arr[i-1] = arr[i-1], arr[i]
+        kiri += 1
+        
 # === clear terminal ===
 def clear_terminal():
     if os.name == 'nt':

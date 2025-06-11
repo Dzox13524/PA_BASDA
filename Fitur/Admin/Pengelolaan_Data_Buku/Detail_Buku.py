@@ -5,7 +5,6 @@ from Fitur.Admin.Pengelolaan_Data_Buku.Hapus_Buku import Fitur_Hapus_Buku
 from Fitur.Admin.Pengelolaan_Data_Buku.Tambah_Stok_Buku import Fitur_Tambah_Stok_Buku
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import sorted_data
 
-
 def Fitur_Detail_Buku(idx, urutan =config.urutanBuku):
     data = sorted_data(urutan)
     clear_terminal()

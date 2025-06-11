@@ -1,19 +1,6 @@
 import pandas as pd
 from tabulate import tabulate
-from controler import clear_terminal
-
-def shaker_sort(arr, key_list):
-    kiri = 0
-    kanan = len(arr) - 1
-    while kiri < kanan:
-        for i in range(kiri, kanan):
-            if key_list[arr[i]] > key_list[arr[i+1]]:
-                arr[i], arr[i+1] = arr[i+1], arr[i]
-        kanan -= 1
-        for i in range(kanan, kiri, -1):
-            if key_list[arr[i]] < key_list[arr[i-1]]:
-                arr[i], arr[i-1] = arr[i-1], arr[i]
-        kiri += 1
+from controler import clear_terminal, shaker_sort
 
 def sorted_data(urutan):
     data = pd.read_csv("database/Akun.csv")

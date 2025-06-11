@@ -6,7 +6,6 @@ from controler import buttons
 from Fitur.Admin.Pengelolaan_Data_Buku.List_Buku import Fitur_list_buku
 from Fitur.Admin.Pengelolaan_Data_Buku.Detail_Buku import Fitur_Detail_Buku
 
-
 def menu_pengelolaan_Buku(urutan = config.urutanBuku):
     awal = 0
     akhir = 50
