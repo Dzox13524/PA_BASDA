@@ -62,4 +62,4 @@ def Fitur_Catatan_Peminjaman():
             buttons_parameter.append({"Nama": "Halaman Sebelumnya", "command":"p", "function":kembali})
         buttons_parameter.append({"Nama": "Tampilkan Data Berdasarkan", "command":"t", "function":Fitur_Tampilan_Peminjaman_Buku})
         buttons_parameter.append({"Nama": "Setujui Sema", "command":"t", "function":Fitur_Tampilan_Peminjaman_Buku})
-        buttons(buttons_parameter)
+        loop = buttons(buttons_parameter)
