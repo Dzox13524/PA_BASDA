@@ -149,4 +149,3 @@ def buttons(paramaeter =[]):
             input(f"'{pilihan}' tidak ada dalam pilihan. Tekan Enter untuk lanjut...")
         else:
             return True
-        clear_terminal()
