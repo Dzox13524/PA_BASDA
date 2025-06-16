@@ -63,6 +63,7 @@ def list_menu():
     conn.close()
     return data
 
+
 def list_data(tabel):
     conn, cur = connectDB()
     query = f"Select * from {tabel}"
@@ -88,6 +89,7 @@ def nama_kolom(table_name):
         if cursor:
             cursor.close()
 
+
 # Mengurangi data
 def tambah_bahan_baku(nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan):
     conn, cur = connectDB()
@@ -99,6 +101,7 @@ def tambah_bahan_baku(nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan)
     )
     conn.commit()
     conn.close()
+
 
 # Logika pengurangan bahan baku
 def kurangi_kuantitas_bahan_baku(kuantitas, id_menu):
@@ -123,6 +126,7 @@ def kurangi_kuantitas_bahan_baku(kuantitas, id_menu):
     finally:
         conn.close()
 
+
 def tambah_kuantitas_bahan_baku(kuantitas, id_menu):
     conn, cur = connectDB()
     try:
@@ -135,47 +139,65 @@ def tambah_kuantitas_bahan_baku(kuantitas, id_menu):
         """
         cur.execute(query, (kuantitas, id_menu))
         conn.commit()
-        print(f"[INFO] Stok bahan baku untuk menu ID {id_menu} berhasil dikembalikan sebanyak {kuantitas} porsi.")
+        print(
+            f"[INFO] Stok bahan baku untuk menu ID {id_menu} berhasil dikembalikan sebanyak {kuantitas} porsi."
+        )
     except Exception as e:
         print(f"[ERROR] Gagal menambah kuantitas bahan baku: {e}")
     finally:
         conn.close()
 
+
 # LOGIKA CEK OUT ITEM
-def simpan_transaksi_dan_detail(keranjang_pesanan):
-    conn, cur = connectDB()
-    if conn is None:
-        print("[ERROR] Koneksi database gagal.")
-        return False
+from database.connection import connectDB
+
+
+def simpan_transaksi_dan_detail(keranjang):
     try:
-        conn.autocommit = False
+        conn, cur = connectDB()
+        if not conn or not cur:
+            print("[ERROR] Koneksi database gagal.")
+            return False
 
-        insert_transaksi_query = "INSERT INTO transaksi (tanggal_transaksi) VALUES (DEFAULT) RETURNING id_transaksi"
-        insert_detail_query = """
-            INSERT INTO detail_transaksi (transaksi_id_transaksi, menu_id_menu, kuantitas_pesanan, harga_jual_saat_transaksi) 
-            VALUES (%s, %s, %s, %s)
-        """
+        cur.execute("BEGIN")
 
-        cur.execute(insert_transaksi_query)
+        cur.execute(
+            "INSERT INTO transaksi (tanggal_transaksi) VALUES (DEFAULT) RETURNING id_transaksi"
+        )
         id_transaksi_baru = cur.fetchone()[0]
         print(f"[INFO] Transaksi baru dibuat dengan ID: {id_transaksi_baru}")
 
-        for item in keranjang_pesanan:
-            cur.execute(insert_detail_query, (
-                id_transaksi_baru,
-                item['id_menu'],
-                item['qty'],  # pastikan keynya sesuai
-                item['harga_menu']
-            ))
+        insert_detail_query = """
+            INSERT INTO detail_transaksi 
+                (transaksi_id_transaksi, menu_id_menu, kuantitas_pesanan, harga_jual_saat_transaksi)
+            VALUES (%s, %s, %s, %s)
+        """
+
+        update_stok_query = """
+            UPDATE bahan_baku 
+            SET stok_saat_ini = stok_saat_ini - (km.jumlah_digunakan * %s)
+            FROM komposisi_menu km
+            WHERE bahan_baku.id_bahan_baku = km.bahan_baku_id_bahan_baku
+              AND km.menu_id_menu = %s
+        """
+
+        for item in keranjang:
+            cur.execute(
+                insert_detail_query,
+                (id_transaksi_baru, item["id_menu"], item["kuantitas"], item["harga"]),
+            )
+
+            cur.execute(update_stok_query, (item["kuantitas"], item["id_menu"]))
 
         conn.commit()
-        print("[INFO] Transaksi berhasil disimpan.")
+        cur.close()
+        conn.close()
         return True
 
     except Exception as e:
-        conn.rollback()
-        print(f"[ERROR] Transaksi gagal: {e}")
+        if conn:
+            conn.rollback()
+            cur.close()
+            conn.close()
+        print(f"[ERROR] Terjadi kesalahan saat menyimpan transaksi: {e}")
         return False
-    finally:
-        cur.close()
-        conn.close()

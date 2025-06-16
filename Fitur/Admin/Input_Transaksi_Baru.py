@@ -154,7 +154,7 @@ def menu_pengelolaan_akun(urutan=config.urutanUser):
         buttons_parameter = [{
             "Nama": f"Pilih [1 - {len(halaman_data)}] untuk masukkan ke keranjang",
             "command": [1, len(halaman_data)],
-            "function": lambda i: tambah_ke_cart(halaman_data[i - 1])
+            "function": lambda i: tambah_ke_cart(halaman_data[i])
         }]
 
         if halaman == 1 and total_halaman > 1:
