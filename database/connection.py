@@ -1,5 +1,7 @@
 import config
 import psycopg2
+from datetime import datetime, timedelta
+from calendar import monthrange
 
 
 def connectDB(
@@ -54,6 +56,17 @@ def tambah_bahan_baku(nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan)
     conn.close()
 
 
+def tambah_pengeluaran(tanggal_pengeluaran, deskripsi, jumlah):
+    conn, cur = connectDB()
+    insert_query = """
+    INSERT INTO pengeluaran (tanggal_pengeluaran, deskripsi, jumlah)
+    VALUES (%s, %s, %s)
+    """
+    cur.execute(insert_query, (tanggal_pengeluaran, deskripsi, jumlah))
+    conn.commit()
+    conn.close()
+
+
 # LIAT DATA
 def list_menu():
     conn, cur = connectDB()
@@ -90,36 +103,218 @@ def nama_kolom(table_name):
             cursor.close()
 
 
-# Mengurangi data
-def tambah_bahan_baku(nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan):
+def get_pengeluaran(periode):
     conn, cur = connectDB()
-    insert_query = "INSERT INTO bahan_baku (nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan) VALUES (%s, %s, %s, %s)"
 
-    cur.execute(
-        insert_query,
-        (nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan),
-    )
-    conn.commit()
-    conn.close()
+    if periode == "tahun":
+        query = """
+        SELECT tanggal_pengeluaran, deskripsi, jumlah
+        FROM pengeluaran
+        WHERE EXTRACT(YEAR FROM tanggal_pengeluaran) = EXTRACT(YEAR FROM CURRENT_DATE)
+        ORDER BY tanggal_pengeluaran;
+        """
+        params = ()
+    elif periode == "bulan":
+        query = """
+        SELECT tanggal_pengeluaran, deskripsi, jumlah
+        FROM pengeluaran
+        WHERE EXTRACT(YEAR FROM tanggal_pengeluaran) = EXTRACT(YEAR FROM CURRENT_DATE)
+          AND EXTRACT(MONTH FROM tanggal_pengeluaran) = EXTRACT(MONTH FROM CURRENT_DATE)
+        ORDER BY tanggal_pengeluaran;
+        """
+        params = ()
+    elif periode == "minggu":
+        query = """
+        SELECT tanggal_pengeluaran, deskripsi, jumlah
+        FROM pengeluaran
+        WHERE EXTRACT(YEAR FROM tanggal_pengeluaran) = EXTRACT(YEAR FROM CURRENT_DATE)
+          AND EXTRACT(WEEK FROM tanggal_pengeluaran) = EXTRACT(WEEK FROM CURRENT_DATE)
+        ORDER BY tanggal_pengeluaran;
+        """
+        params = ()
+    else:
+        raise ValueError("Periode harus 'minggu', 'bulan', atau 'tahun'")
 
+    with conn.cursor() as cur:
+        cur.execute(query, params)
+        return cur.fetchall()
 
-# Logika pengurangan bahan baku
+def get_detail_riwayat_transaksi(periode=None):
+    conn, cur = connectDB()
+
+    if periode == "tahun":
+        query = """
+        SELECT
+            t.tanggal_transaksi,
+            t.id_transaksi,
+            m.nama_menu,
+            dt.kuantitas_pesanan,
+            dt.harga_jual_saat_transaksi,
+            (dt.kuantitas_pesanan * dt.harga_jual_saat_transaksi) AS subtotal_item,
+            totals.total_bayar_transaksi
+        FROM transaksi t
+        JOIN detail_transaksi dt ON t.id_transaksi = dt.transaksi_id_transaksi
+        JOIN menu m ON dt.menu_id_menu = m.id_menu
+        JOIN (
+            SELECT 
+                transaksi_id_transaksi,
+                SUM(kuantitas_pesanan * harga_jual_saat_transaksi) AS total_bayar_transaksi
+            FROM detail_transaksi
+            GROUP BY transaksi_id_transaksi
+        ) totals ON t.id_transaksi = totals.transaksi_id_transaksi
+        WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+        ORDER BY t.tanggal_transaksi DESC, t.id_transaksi, m.nama_menu;
+        """
+        params = ()
+    elif periode == "bulan":
+        query = """
+        SELECT
+            t.tanggal_transaksi,
+            t.id_transaksi,
+            m.nama_menu,
+            dt.kuantitas_pesanan,
+            dt.harga_jual_saat_transaksi,
+            (dt.kuantitas_pesanan * dt.harga_jual_saat_transaksi) AS subtotal_item,
+            totals.total_bayar_transaksi
+        FROM transaksi t
+        JOIN detail_transaksi dt ON t.id_transaksi = dt.transaksi_id_transaksi
+        JOIN menu m ON dt.menu_id_menu = m.id_menu
+        JOIN (
+            SELECT 
+                transaksi_id_transaksi,
+                SUM(kuantitas_pesanan * harga_jual_saat_transaksi) AS total_bayar_transaksi
+            FROM detail_transaksi
+            GROUP BY transaksi_id_transaksi
+        ) totals ON t.id_transaksi = totals.transaksi_id_transaksi
+        WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+          AND EXTRACT(MONTH FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(MONTH FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+        ORDER BY t.tanggal_transaksi DESC, t.id_transaksi, m.nama_menu;
+        """
+        params = ()
+    elif periode == "minggu":
+        query = """
+        SELECT
+            t.tanggal_transaksi,
+            t.id_transaksi,
+            m.nama_menu,
+            dt.kuantitas_pesanan,
+            dt.harga_jual_saat_transaksi,
+            (dt.kuantitas_pesanan * dt.harga_jual_saat_transaksi) AS subtotal_item,
+            totals.total_bayar_transaksi
+        FROM transaksi t
+        JOIN detail_transaksi dt ON t.id_transaksi = dt.transaksi_id_transaksi
+        JOIN menu m ON dt.menu_id_menu = m.id_menu
+        JOIN (
+            SELECT 
+                transaksi_id_transaksi,
+                SUM(kuantitas_pesanan * harga_jual_saat_transaksi) AS total_bayar_transaksi
+            FROM detail_transaksi
+            GROUP BY transaksi_id_transaksi
+        ) totals ON t.id_transaksi = totals.transaksi_id_transaksi
+        WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+          AND EXTRACT(WEEK FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(WEEK FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+        ORDER BY t.tanggal_transaksi DESC, t.id_transaksi, m.nama_menu;
+        """
+        params = ()
+    elif periode is None:
+        query = """
+        SELECT
+            t.tanggal_transaksi,
+            t.id_transaksi,
+            m.nama_menu,
+            dt.kuantitas_pesanan,
+            dt.harga_jual_saat_transaksi,
+            (dt.kuantitas_pesanan * dt.harga_jual_saat_transaksi) AS subtotal_item,
+            totals.total_bayar_transaksi
+        FROM transaksi t
+        JOIN detail_transaksi dt ON t.id_transaksi = dt.transaksi_id_transaksi
+        JOIN menu m ON dt.menu_id_menu = m.id_menu
+        JOIN (
+            SELECT 
+                transaksi_id_transaksi,
+                SUM(kuantitas_pesanan * harga_jual_saat_transaksi) AS total_bayar_transaksi
+            FROM detail_transaksi
+            GROUP BY transaksi_id_transaksi
+        ) totals ON t.id_transaksi = totals.transaksi_id_transaksi
+        ORDER BY t.tanggal_transaksi DESC, t.id_transaksi, m.nama_menu;
+        """
+        params = ()
+    else:
+        raise ValueError("Periode harus 'minggu', 'bulan', 'tahun', atau None")
+
+    with conn.cursor() as cur:
+        cur.execute(query, params)
+        return cur.fetchall()
+
+def get_laporan_penjualan_per_menu(periode=None):
+    conn, cur = connectDB()
+
+    filter_clause = ""
+    if periode == "minggu":
+        filter_clause = """
+        WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+          AND EXTRACT(WEEK FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(WEEK FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+        """
+    elif periode == "bulan":
+        filter_clause = """
+        WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+          AND EXTRACT(MONTH FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(MONTH FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+        """
+    elif periode == "tahun":
+        filter_clause = """
+        WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
+        """
+    elif periode is None:
+        filter_clause = ""  # Semua data
+    else:
+        raise ValueError("Periode harus 'minggu', 'bulan', 'tahun', atau None")
+
+    query = f"""
+    SELECT 
+        m.nama_menu,
+        SUM(dt.kuantitas_pesanan) AS total_terjual,
+        SUM(dt.kuantitas_pesanan * dt.harga_jual_saat_transaksi) AS total_pendapatan
+    FROM transaksi t
+    JOIN detail_transaksi dt ON t.id_transaksi = dt.transaksi_id_transaksi
+    JOIN menu m ON dt.menu_id_menu = m.id_menu
+    {filter_clause}
+    GROUP BY m.nama_menu
+    ORDER BY total_terjual DESC;
+    """
+
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
+# Logic kurang tambah bahan baku
 def kurangi_kuantitas_bahan_baku(kuantitas, id_menu):
     conn, cur = connectDB()
     try:
-        query = f"""
+        cek_query = """
+        SELECT bb.nama_bahan, bb.stok_saat_ini, km.jumlah_digunakan
+        FROM komposisi_menu km
+        JOIN bahan_baku bb ON km.bahan_baku_id_bahan_baku = bb.id_bahan_baku
+        WHERE km.menu_id_menu = %s
+        """
+        cur.execute(cek_query, (id_menu,))
+        data = cur.fetchall()
+
+        for nama_bahan, stok, jumlah in data:
+            if stok < jumlah * kuantitas:
+                print(f"[ERROR] Stok bahan '{nama_bahan}' tidak cukup.")
+                return False
+
+        update_query = """
         UPDATE bahan_baku
-        SET stok_saat_ini = stok_saat_ini - (km.jumlah_digunakan * {kuantitas})
+        SET stok_saat_ini = stok_saat_ini - (km.jumlah_digunakan * %s)
         FROM komposisi_menu km
         WHERE bahan_baku.id_bahan_baku = km.bahan_baku_id_bahan_baku
-        AND km.menu_id_menu = {id_menu}
-        AND stok_saat_ini >= (km.jumlah_digunakan * {kuantitas});
+        AND km.menu_id_menu = %s
         """
-        cur.execute(query)
-        if cur.rowcount == 0:
-            return False
+        cur.execute(update_query, (kuantitas, id_menu))
         conn.commit()
         return True
+
     except Exception as e:
         print(f"[ERROR] Gagal mengurangi kuantitas bahan baku: {e}")
         return False
@@ -146,10 +341,6 @@ def tambah_kuantitas_bahan_baku(kuantitas, id_menu):
         print(f"[ERROR] Gagal menambah kuantitas bahan baku: {e}")
     finally:
         conn.close()
-
-
-# LOGIKA CEK OUT ITEM
-from database.connection import connectDB
 
 
 def simpan_transaksi_dan_detail(keranjang):
@@ -201,3 +392,35 @@ def simpan_transaksi_dan_detail(keranjang):
             conn.close()
         print(f"[ERROR] Terjadi kesalahan saat menyimpan transaksi: {e}")
         return False
+
+
+# PENGECEKAN UPDATE STATUS MENU
+def periksa_dan_update_status_menu():
+    conn, cur = connectDB()
+
+    cur.execute("SELECT id_menu FROM menu")
+    semua_menu = cur.fetchall()
+
+    for (id_menu,) in semua_menu:
+        query = """
+            SELECT bb.stok_saat_ini, bb.stok_minimal
+            FROM komposisi_menu km
+            JOIN bahan_baku bb ON km.bahan_baku_id_bahan_baku = bb.id_bahan_baku
+            WHERE km.menu_id_menu = %s
+        """
+        cur.execute(query, (id_menu,))
+        bahan_baku = cur.fetchall()
+
+        status_tersedia = True
+        for stok_saat_ini, stok_minimal in bahan_baku:
+            if stok_saat_ini <= stok_minimal:
+                status_tersedia = False
+                break
+
+        update_query = """
+            UPDATE menu SET status_tersedia = %s WHERE id_menu = %s
+        """
+        cur.execute(update_query, (status_tersedia, id_menu))
+
+    conn.commit()
+    conn.close()

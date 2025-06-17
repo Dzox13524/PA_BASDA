@@ -3,6 +3,36 @@ import pytz
 import subprocess
 from datetime import datetime
 
+def format_tanggal_waktu_wib(tanggal):
+    bulan_dict = {
+        1: "Januari",
+        2: "Februari",
+        3: "Maret",
+        4: "April",
+        5: "Mei",
+        6: "Juni",
+        7: "Juli",
+        8: "Agustus",
+        9: "September",
+        10: "Oktober",
+        11: "November",
+        12: "Desember",
+    }
+    
+    zona_wib = pytz.timezone("Asia/Jakarta")
+    
+    if tanggal.tzinfo is None or tanggal.tzinfo.utcoffset(tanggal) is None:
+        tanggal_db = pytz.utc.localize(tanggal)
+    
+    tanggal_wib = tanggal_db.astimezone(zona_wib)
+    
+    tanggal = tanggal_wib.day
+    bulan = bulan_dict[tanggal_wib.month]
+    tahun = tanggal_wib.year
+    jam = tanggal_wib.strftime("%H:%M")
+    
+    hasil = f"{tanggal} {bulan} {tahun}, {jam} WIB"
+    return hasil
 
 # === Jam Terbaru ===
 def waktu_sekarang():

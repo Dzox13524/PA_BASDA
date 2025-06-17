@@ -2,9 +2,9 @@ import os
 import config
 from controler import buttons, clear_terminal
 from tabulate import tabulate
-from database.connection import list_data, kurangi_kuantitas_bahan_baku, tambah_kuantitas_bahan_baku, simpan_transaksi_dan_detail
+from database.connection import list_data, kurangi_kuantitas_bahan_baku, tambah_kuantitas_bahan_baku, simpan_transaksi_dan_detail, nama_kolom, periksa_dan_update_status_menu
 
-def menu_pengelolaan_akun(urutan=config.urutanUser):
+def input_transaksi_baru(urutan=config.urutanUser):
     awal = 0
     akhir = 50
     halaman = 1
@@ -134,7 +134,7 @@ def menu_pengelolaan_akun(urutan=config.urutanUser):
         print("[INFO] Memproses checkout...")
         keranjang_format = [{"id_menu": i["id_menu"], "kuantitas": i["qty"], "harga": i["harga_menu"]} for i in cart]
         berhasil = simpan_transaksi_dan_detail(keranjang_format)
-
+        periksa_dan_update_status_menu()
         if berhasil:
             cart.clear()
             input("[INFO] Transaksi berhasil disimpan dan keranjang dikosongkan.")
@@ -147,7 +147,7 @@ def menu_pengelolaan_akun(urutan=config.urutanUser):
         data = list_data('menu')
         total_halaman = (len(data) + 50 - 1) // 50
         halaman_data = data[awal:akhir]
-        columns = ['id_menu', 'nama_menu', 'deskripsi', 'harga_menu', 'status_tersedia']
+        columns = nama_kolom('menu')
         print(f"\n=== MENU | Halaman {halaman}/{total_halaman} ===")
         print(tabulate(halaman_data, headers=columns, tablefmt="grid"))
 
