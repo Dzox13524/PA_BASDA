@@ -3,7 +3,7 @@ from controler import clear_terminal
 from database.connection import get_laporan_penjualan_per_menu
 
 
-def Fitur_Laporan_Penjualan_Per_Menu():
+def Fitur_Laporan_Penjualan():
     while True:
         clear_terminal()
         print("=== LAPORAN PENJUALAN PER MENU ===")

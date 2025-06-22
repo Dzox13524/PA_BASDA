@@ -1,10 +1,15 @@
-import os
-import config
 from controler import buttons, clear_terminal
 from tabulate import tabulate
-from database.connection import list_data, kurangi_kuantitas_bahan_baku, tambah_kuantitas_bahan_baku, simpan_transaksi_dan_detail, nama_kolom, periksa_dan_update_status_menu
+from database.connection import (
+    kurangi_kuantitas_bahan_baku,
+    tambah_kuantitas_bahan_baku,
+    simpan_transaksi_dan_detail,
+    nama_kolom,
+    periksa_dan_update_status_menu,
+    list_menu
+)
 
-def input_transaksi_baru(urutan=config.urutanUser):
+def input_transaksi_baru():
     awal = 0
     akhir = 50
     halaman = 1
@@ -144,12 +149,28 @@ def input_transaksi_baru(urutan=config.urutanUser):
     loop = True
     while loop:
         clear_terminal()
-        data = list_data('menu')
+        data = list_menu()
+        if len(data) == 0:
+            input("Menu telah habis, harap beli stok bahan.")
+            return
+
         total_halaman = (len(data) + 50 - 1) // 50
         halaman_data = data[awal:akhir]
         columns = nama_kolom('menu')
+
+        tabel = [[i + 1] + list(row) for i, row in enumerate(halaman_data)]
+        headers = ["No"] + columns
         print(f"\n=== MENU | Halaman {halaman}/{total_halaman} ===")
-        print(tabulate(halaman_data, headers=columns, tablefmt="grid"))
+        rows = [[i + 1, row[1], row[2], row[3]] for i, row in enumerate(halaman_data)]
+
+        print(
+            tabulate(
+                rows,
+                headers=["No", "Nama Menu", "Deskripsu", "Harga"],
+                tablefmt="grid",
+            )
+        )
+
 
         buttons_parameter = [{
             "Nama": f"Pilih [1 - {len(halaman_data)}] untuk masukkan ke keranjang",

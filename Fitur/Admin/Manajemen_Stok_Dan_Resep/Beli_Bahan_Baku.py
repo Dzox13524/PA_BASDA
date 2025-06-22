@@ -1,8 +1,8 @@
-from controler  import clear_terminal
-from database.connection import tambah_bahan_baku 
+from controler import clear_terminal
+from database.connection import tambah_bahan_baku
 
 
-def Fitur_Tambah_Bahan_Baku():
+def Fitur_Beli_Bahan_Baku():
     clear_terminal()
     print("=== Tambah Bahan Baku Baru ===\n")
 
@@ -15,7 +15,7 @@ def Fitur_Tambah_Bahan_Baku():
         tambah_bahan_baku(nama, stok_saat_ini, stok_minimal, satuan_id)
 
         print(f"\n[SUKSES] Bahan baku '{nama}' berhasil ditambahkan.")
-    except :
-        print(f"\n[ERROR] Terjadi kesalahan")
+    except Exception as e:
+        print(f"\n[ERROR] Terjadi kesalahan: {e}")
 
     input("\nTekan Enter untuk kembali ke menu...")

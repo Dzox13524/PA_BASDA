@@ -1,7 +1,8 @@
-import os 
+import os
 import config
 import importlib
-from controler import buttons, clear_terminal,waktu_sekarang
+from controler import buttons, clear_terminal, waktu_sekarang
+
 
 def menu_Laporan():
     clear_terminal()
@@ -27,7 +28,10 @@ def menu_Laporan():
     modul_prefix = "Fitur.Admin.Laporan_Dan_Riwayat_Penjualan"
 
     for i in os.listdir(path_folder):
-        if i.endswith(".py") and i not in ["__pycache__", "Laporan_Dan_Riwayat_Penjualan.py"]:
+        if i.endswith(".py") and i not in [
+            "__pycache__",
+            "Laporan_Dan_Riwayat_Penjualan.py",
+        ]:
             nama = i.replace(".py", "").replace("_", " ")
             pembuka += f"║├▶ {idx}. {nama}{' '*(45 - len(str(idx) + nama))}│║\n"
 
@@ -38,11 +42,13 @@ def menu_Laporan():
             if cmd in [btn["command"] for btn in buttons_parameter]:
                 cmd = nama[:2].lower()
 
-            buttons_parameter.append({
-                "Nama": nama,
-                "command": cmd,
-                "function": getattr(modul, f"Fitur_{i.replace('.py', '')}")
-            })
+            buttons_parameter.append(
+                {
+                    "Nama": nama,
+                    "command": cmd,
+                    "function": getattr(modul, f"Fitur_{i.replace('.py', '')}"),
+                }
+            )
 
             idx += 1
 
@@ -50,5 +56,4 @@ def menu_Laporan():
     pembuka += """║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """
-    print(pembuka)
-    return buttons_parameter
+    buttons(buttons_parameter)

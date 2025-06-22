@@ -3,7 +3,7 @@ from controler import format_tanggal_waktu_wib, clear_terminal
 
 from database.connection import get_detail_riwayat_transaksi
 
-def Fitur_List_Detail_Transaksi():
+def Fitur_Riwayat_Transaksi():
     while True:
         clear_terminal()
         print("\nPilih periode detail riwayat transaksi yang ingin ditampilkan:")

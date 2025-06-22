@@ -1,14 +1,9 @@
-urutanUser = "Name"
-urutanBuku = "JudulBuku"
-tampilanPeminjaman = ""
-ID_Akun = ""
-
 # KONFIGURASI AKUN PG ADMIN
-hostname = 'LocalHost'
-database = 'Angkringan'
-username = 'postgres'
-password = 'admin123'
+hostname = "LocalHost"
+database = "Angkringan"
+username = "postgres"
+password = "admin123"
 
 # CONNECTION DAN CURSOR
-connections = ''
-cursor = ''
+connections = ""
+cursor = ""

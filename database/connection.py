@@ -43,6 +43,23 @@ def tambah_resep(menu_id_menu, bahan_baku_id_bahan_baku, jumlah_digunakan):
     conn.commit()
     conn.close()
 
+def beli_bahan_baku(bahan_baku_id_bahan_baku, jumlah_beli, harga_per_satuan):
+    conn, cur = connectDB()
+    query = "INSERT INTO pembelian_bahan_baku (bahan_baku_id_bahan_baku, jumlah_beli, harga_per_satuan) VALUES (%s, %s, %s)"
+    cur.execute(
+        query,
+        (bahan_baku_id_bahan_baku, jumlah_beli, harga_per_satuan),
+    )
+    query = f"""UPDATE bahan_baku
+SET stok_saat_ini = stok_saat_ini + {jumlah_beli}
+WHERE id_bahan_baku = {bahan_baku_id_bahan_baku}"""
+    cur.execute(
+        query,
+        (bahan_baku_id_bahan_baku, jumlah_beli, harga_per_satuan),
+    )
+    conn.commit()
+    conn.close()
+    return True
 
 def tambah_bahan_baku(nama_bahan, stok_saat_ini, stok_minimal, satuan_id_satuan):
     conn, cur = connectDB()
@@ -68,18 +85,41 @@ def tambah_pengeluaran(tanggal_pengeluaran, deskripsi, jumlah):
 
 
 # LIAT DATA
+def get_total_penjualan_hari_ini():
+    conn, cur = connectDB()
+
+    query = """
+    SELECT
+        SUM(dt.kuantitas_pesanan) AS total_menu_terjual,
+        SUM(dt.kuantitas_pesanan * dt.harga_jual_saat_transaksi) AS total_pendapatan
+    FROM transaksi t
+    JOIN detail_transaksi dt ON t.id_transaksi = dt.transaksi_id_transaksi
+    WHERE (t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta')::DATE = (CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')::DATE;
+    """
+
+    with conn.cursor() as cur:
+        cur.execute(query)
+        hasil = cur.fetchone()
+        total_terjual = hasil[0] if hasil[0] is not None else 0
+        total_pendapatan = hasil[1] if hasil[1] is not None else 0
+        return total_terjual, total_pendapatan
+
+
 def list_menu():
     conn, cur = connectDB()
-    query = f"Select * from menu where status_tersedia = 'true'"
+    query = """SELECT id_menu, nama_menu, deskripsi, harga_menu
+        FROM menu
+        WHERE status_tersedia = 'true'
+        ORDER BY id_menu ASC"""
     cur.execute(query)
     data = cur.fetchall()
     conn.close()
     return data
 
 
-def list_data(tabel):
+def list_data(tabel, urutan):
     conn, cur = connectDB()
-    query = f"Select * from {tabel}"
+    query = f"Select * from {tabel} order by {urutan}"
     cur.execute(query)
     data = cur.fetchall()
     conn.close()
@@ -138,6 +178,26 @@ def get_pengeluaran(periode):
     with conn.cursor() as cur:
         cur.execute(query, params)
         return cur.fetchall()
+
+def get_bahan_baku_kritis():
+    conn, cur = connectDB()
+    query = """
+    SELECT 
+        bb.id_bahan_baku, 
+        bb.nama_bahan, 
+        bb.stok_saat_ini, 
+        bb.stok_minimal 
+    FROM bahan_baku bb
+    WHERE bb.stok_saat_ini <= bb.stok_minimal
+    ORDER BY bb.stok_saat_ini ASC;
+    """
+    cur.execute(query)
+    data = cur.fetchall()
+    jumlah = len(data)
+    cur.close()
+    conn.close()
+
+    return jumlah, data
 
 def get_detail_riwayat_transaksi(periode=None):
     conn, cur = connectDB()
@@ -246,6 +306,7 @@ def get_detail_riwayat_transaksi(periode=None):
         cur.execute(query, params)
         return cur.fetchall()
 
+
 def get_laporan_penjualan_per_menu(periode=None):
     conn, cur = connectDB()
 
@@ -265,7 +326,7 @@ def get_laporan_penjualan_per_menu(periode=None):
         WHERE EXTRACT(YEAR FROM t.tanggal_transaksi AT TIME ZONE 'Asia/Jakarta') = EXTRACT(YEAR FROM CURRENT_DATE AT TIME ZONE 'Asia/Jakarta')
         """
     elif periode is None:
-        filter_clause = ""  # Semua data
+        filter_clause = ""
     else:
         raise ValueError("Periode harus 'minggu', 'bulan', 'tahun', atau None")
 
@@ -285,6 +346,7 @@ def get_laporan_penjualan_per_menu(periode=None):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
+
 
 # Logic kurang tambah bahan baku
 def kurangi_kuantitas_bahan_baku(kuantitas, id_menu):

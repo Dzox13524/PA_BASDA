@@ -1,6 +1,6 @@
 import os
 import importlib
-from controler import clear_terminal, waktu_sekarang
+from controler import clear_terminal, waktu_sekarang, buttons
 
 
 def menu_Manajemen_Stok_Dan_Resep():
@@ -55,5 +55,4 @@ def menu_Manajemen_Stok_Dan_Resep():
     pembuka += """║└─────────────────────────────────────────────────┘║
 ╚───────────────────────────────────────────────────╝
 """
-    print(pembuka)
-    return buttons_parameter
+    buttons(buttons_parameter)
